@@ -2,27 +2,9 @@
   <div>
     <div class="row justify-content-center">
       <div class="col-2">
-        <div class="input-group mb-3">
-          <!--    <span class="input-group-text" id="basic-addon1">@</span>-->
-          <input type="text" class="form-control" placeholder="Quiz name" aria-label="Username"
-                 aria-describedby="basic-addon1">
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-          <label class="form-check-label" for="flexRadioDefault1">
-            <h5>Create new flashcards</h5>
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-          <label class="form-check-label" for="flexRadioDefault1">
-            <h5>Create new quiz</h5>
-          </label>
-        </div>
-        <div  class="input-group mb-3">
-          <span class="input-group-text">Correct answers needed</span>
-          <input type="number" min="0" class="form-control" placeholder="0">
-        </div>
+        <AddQuizName ref="addQuizName" @emitAddQuizName="setQuizName"/>
+        <SelectQuizType ref="selectQuizType" @emitQuizTypeEvent="setQuizType" />
+        <AddCorrectAnswersNeeded ref="addCorrectAnswersNeeded" @emitRequiredCountEvent="setRequiredCount"/>
         <div>
           <button type="button" class="btn btn-dark">Create</button>
         </div>
@@ -35,8 +17,51 @@
 </template>
 
 <script>
+import AddQuizName from "@/components/AddQuiz/AddQuizName.vue";
+import SelectQuizType from "@/components/AddQuiz/SelectQuizType.vue";
+import AddCorrectAnswersNeeded from "@/components/AddQuiz/AddCorrectAnswersNeeded.vue";
+
 export default {
-  name: "AddQuiz"
+  name: "AddQuiz",
+  components: {AddCorrectAnswersNeeded, SelectQuizType, AddQuizName},
+  data: function () {
+    return {
+      quizDto:{
+        quizName: '',
+        requiredCount: 0,
+        quizType: ''
+      }
+    }
+  },
+  methods: {
+    setQuizName: function (quizName) {
+      this.quizDto.quizName = quizName
+    },
+    setQuizType: function (quizType) {
+      this.quizDto.quizType = quizType
+    },
+    setRequiredCount: function (requiredCount) {
+      this.quizDto.requiredCount = requiredCount
+    }
+  },
+  // getAtmLocation() {
+  //   this.$http.get("/atm/location", {
+  //         params: {
+  //           locationId: this.locationId
+  //         }
+  //       }
+  //   ).then(response => {
+  //     this.atmRequest = response.data
+  //
+  //     // väärtustame kõikide alamkomponentide väljad
+  //     this.$refs.citiesDropdown.setSelectedCityId(this.atmRequest.cityId)
+  //     this.$refs.atmLocationName.setLocationName(this.atmRequest.locationName)
+  //     this.$refs.atmQuantity.setNumberOfAtms(this.atmRequest.numberOfAtms)
+  //     this.$refs.atmTransactionTypes.setTransactionTypes(this.atmRequest.transactionTypes)
+  //   }).catch(error => {
+  //     console.log(error)
+  //   })
+  // },
 }
 </script>
 
