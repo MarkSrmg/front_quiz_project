@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="{'background-image':'/assets/bg_image.jpg'}">
+  <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -14,17 +14,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
 }
 
-
+body {
+  background: url('../src/assets/bg_image.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
 nav {
   padding: 30px;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #ffffff;
 }
 
 nav a.router-link-exact-active {

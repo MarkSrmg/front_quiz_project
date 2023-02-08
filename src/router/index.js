@@ -1,10 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import AddQuiz from "@/views/AddQuiz.vue";
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/quiz',
+    name: 'addQuiz',
+    component: AddQuiz
+  },
   {
     path: '/',
     name: 'home',
