@@ -6,7 +6,7 @@
         <SelectQuizType ref="selectQuizType" @emitQuizTypeEvent="setQuizType" />
         <AddCorrectAnswersNeeded ref="addCorrectAnswersNeeded" @emitRequiredCountEvent="setRequiredCount"/>
         <div>
-          <button type="button" class="btn btn-dark">Create</button>
+          <button v-on:click="addQuiz" type="button" class="btn btn-dark">Create</button>
         </div>
       </div>
     </div>
@@ -20,20 +20,36 @@
 import AddQuizName from "@/components/AddQuiz/AddQuizName.vue";
 import SelectQuizType from "@/components/AddQuiz/SelectQuizType.vue";
 import AddCorrectAnswersNeeded from "@/components/AddQuiz/AddCorrectAnswersNeeded.vue";
+import addQuizName from "@/components/AddQuiz/AddQuizName.vue";
 
 export default {
   name: "AddQuiz",
+  computed: {
+    addQuizName() {
+      return addQuizName
+    }
+  },
   components: {AddCorrectAnswersNeeded, SelectQuizType, AddQuizName},
   data: function () {
     return {
+      userId: 1,
+          //sessionStorage.getItem('userId'),
+      quizId:0,
       quizDto:{
         quizName: '',
-        requiredCount: 0,
-        quizType: ''
+        quizType: '',
+        requiredCount: 0
       }
     }
   },
   methods: {
+    addQuiz: function (){
+    this.$refs.addQuizName.emitAddQuizName()
+      this.$refs.selectQuizType.emitQuizType()
+      this.$refs.addCorrectAnswersNeeded.emitRequiredCount()
+      this.postQuiz()
+    },
+
     setQuizName: function (quizName) {
       this.quizDto.quizName = quizName
     },
@@ -41,27 +57,21 @@ export default {
       this.quizDto.quizType = quizType
     },
     setRequiredCount: function (requiredCount) {
-      this.quizDto.requiredCount = requiredCount
-    }
+      this.quizDto.requiredCount   = requiredCount
+    },
+    postQuiz: function () {
+      this.$http.post("/quiz", this.quizDto, {
+            params: {
+              userId: this.userId,
+            }
+          }
+      ).then(response => {
+        this.quizId = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
   },
-  // getAtmLocation() {
-  //   this.$http.get("/atm/location", {
-  //         params: {
-  //           locationId: this.locationId
-  //         }
-  //       }
-  //   ).then(response => {
-  //     this.atmRequest = response.data
-  //
-  //     // väärtustame kõikide alamkomponentide väljad
-  //     this.$refs.citiesDropdown.setSelectedCityId(this.atmRequest.cityId)
-  //     this.$refs.atmLocationName.setLocationName(this.atmRequest.locationName)
-  //     this.$refs.atmQuantity.setNumberOfAtms(this.atmRequest.numberOfAtms)
-  //     this.$refs.atmTransactionTypes.setTransactionTypes(this.atmRequest.transactionTypes)
-  //   }).catch(error => {
-  //     console.log(error)
-  //   })
-  // },
 }
 </script>
 

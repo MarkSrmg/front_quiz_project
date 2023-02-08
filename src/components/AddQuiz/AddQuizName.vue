@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     emitAddQuizName: function () {
-      this.$emit('emitAddQuizName', this.locationName)
+      this.$emit('emitAddQuizName', this.quizName)
     },
   }
 }

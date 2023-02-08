@@ -13,7 +13,7 @@ export default {
     }
   },
   methods:{
-    emitQuizType: function () {
+    emitRequiredCount: function () {
       this.$emit('emitRequiredCountEvent', this.requiredCount)
     }
   }
