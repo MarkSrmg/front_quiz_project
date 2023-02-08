@@ -1,21 +1,22 @@
 <template>
-<div>
-<div class=""
+  <div>
+    <div class="row justify-content-center">
+      <div class="col-2">
+        <div class="input-group mb-3">
+          <!--    <span class="input-group-text" id="basic-addon1">@</span>-->
+          <input type="text" class="form-control" placeholder="Quiz name" aria-label="Username"
+                 aria-describedby="basic-addon1">
+        </div>
+        <div>
+          Create new flashcards
+        </div>
+        <div>
+          Create new quiz
+        </div>
+      </div>
+    </div>
 
-  <button type="button" class="btn btn-primary">Primary</button>
-  <button type="button" class="btn btn-secondary">Secondary</button>
-  <button type="button" class="btn btn-success">Success</button>
-  <button type="button" class="btn btn-danger">Danger</button>
-  <button type="button" class="btn btn-warning">Warning</button>
-  <button type="button" class="btn btn-info">Info</button>
-  <button type="button" class="btn btn-light">Light</button>
-  <button type="button" class="btn btn-dark">Dark</button>
-
-  <button type="button" class="btn btn-link">Link</button>
-TEKST TEKST
-
-
-</div>
+  </div>
 
 
 
