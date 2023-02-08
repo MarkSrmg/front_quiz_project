@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AddQuiz from "@/views/AddQuiz.vue";
-import AddQuestion from "@/views/AddQuestion.vue";
 import LoginView from "@/views/LoginView.vue";
+import AddQuestionView from "@/views/AddQuestionView.vue";
 
 Vue.use(VueRouter)
 
@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/questions',
     name: 'addQuestion',
-    component: AddQuestion
+    component: AddQuestionView
   },
   {
     path: '/quiz',
