@@ -33,7 +33,6 @@ export default {
   data: function () {
     return {
       userId: sessionStorage.getItem('userId'),
-      roleName: sessionStorage.getItem('roleName'),
       quizId:0,
       quizDto:{
         quizName: '',
