@@ -32,8 +32,8 @@ export default {
   components: {AddCorrectAnswersNeeded, SelectQuizType, AddQuizName},
   data: function () {
     return {
-      userId: 1,
-          //sessionStorage.getItem('userId'),
+      userId: sessionStorage.getItem('userId'),
+      roleName: sessionStorage.getItem('roleName'),
       quizId:0,
       quizDto:{
         quizName: '',
