@@ -5,10 +5,14 @@
       <td>{{ quiz.quizType }}</td>
       <td>{{ quiz.quizName }}</td>
       <td>
-        <font-awesome-icon icon="fa-regular fa-play" class="icon-hover"/>
+        <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play"/>
       </td>
-      <!-- todo lisada ikoon edit     -->
-      <!-- todo lisada ikoon refresh     -->
+      <td>
+        <font-awesome-icon icon="fa-solid fa-pencil"/>
+      </td>
+      <td>
+        <font-awesome-icon icon="fa-solid fa-arrows-rotate"/>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -45,7 +49,9 @@ export default {
         console.log(error)
       })
     },
-
+    navigateToPlay: function (quizId) {
+      this.$router.push({name: 'playRoute', query: {quizId: quizId}})
+    }
 
   },
   beforeMount() {
