@@ -56,7 +56,12 @@ export default {
       this.questionRequest.questionPicture = pictureDataBase64
     },
     postQuestion: function () {
-      this.$http.post("/questions", this.questionRequest
+      this.$http.post("/questions", this.questionRequest, {
+            params: {
+              quizId: this.quizId
+            }
+          }
+
       ).then(response => {
         this.questionId = response.data.questionId
 
