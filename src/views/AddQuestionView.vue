@@ -9,7 +9,7 @@
         <button v-on:click="addQuestion" type="button" class="btn btn-success">Save question</button>
       </div>
       <div v-if="isShown">
-        <AddFlashcardAnswer/>
+        <AddFlashcardAnswer :question-id="questionId" />
 
       </div>
     </div>
@@ -31,8 +31,9 @@ export default {
   components: {AddFlashcardAnswer, ImageInput, AddQuestionText},
   data: function () {
     return {
-      questionId: 0,
-      questionDto: {
+      questionId: Number(this.$route.query.questionId),
+      quizId: Number(this.$route.query.quizId),
+      questionRequest: {
         questionText: '',
         questionPicture: '',
         questionType: ''
@@ -49,15 +50,15 @@ export default {
     },
 
     setQuestionText: function (questionText) {
-      this.questionDto.questionText = questionText
+      this.questionRequest.questionText = questionText
     },
     setQuestionPicture: function (pictureDataBase64) {
-      this.questionDto.questionPicture = pictureDataBase64
+      this.questionRequest.questionPicture = pictureDataBase64
     },
     postQuestion: function () {
-      this.$http.post("/questions", this.questionDto
+      this.$http.post("/questions", this.questionRequest
       ).then(response => {
-        this.questionId = response.data
+        this.questionId = response.data.questionId
 
       }).catch(error => {
         console.log(error)
