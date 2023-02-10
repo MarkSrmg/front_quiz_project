@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AddQuiz from "@/views/AddQuiz.vue";
 import LoginView from "@/views/LoginView.vue";
+import MenuView from "@/views/MenuView.vue";
 import PlayView from "@/views/PlayView.vue";
 import AddQuestionView from "@/views/AddQuestionView.vue";
 
@@ -18,6 +19,11 @@ const routes = [
     path: '/quiz',
     name: 'addQuizRoute',
     component: AddQuiz
+  },
+  {
+    path: '/menu',
+    name: 'menuRoute',
+    component: MenuView
   },
   {
     path: '/',
