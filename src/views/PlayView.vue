@@ -27,7 +27,7 @@ export default {
   name: "PlayView",
   data: function () {
     return {
-      quizId: 2,
+      quizId: Number(this.$route.query.quizId),
       showFCAnswer: false,
       questionResponse: {
         questionId: 0,
