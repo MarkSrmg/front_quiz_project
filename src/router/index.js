@@ -4,14 +4,19 @@ import HomeView from '../views/HomeView.vue'
 import AddQuiz from "@/views/AddQuiz.vue";
 import LoginView from "@/views/LoginView.vue";
 import PlayView from "@/views/PlayView.vue";
+import AddQuestionView from "@/views/AddQuestionView.vue";
 
 Vue.use(VueRouter)
 
 const routes = [
-
+  {
+    path: '/questions',
+    name: 'addQuestionRoute',
+    component: AddQuestionView
+  },
   {
     path: '/quiz',
-    name: 'addQuiz',
+    name: 'addQuizRoute',
     component: AddQuiz
   },
   {
