@@ -76,7 +76,7 @@ export default {
 
         sessionStorage.setItem('userId', this.loginResponse.userId)
         sessionStorage.setItem('roleName', this.loginResponse.roleName)
-        this.$router.push({name: 'addQuiz'})
+        this.$router.push({name: 'menuRoute'})
       }).catch(error => {
         this.apiError = error.response.data
         this.message = this.apiError.message
