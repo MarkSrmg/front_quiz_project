@@ -3,10 +3,14 @@
 
     <tbody>
     <tr v-for="quiz in quizzes" :key="quiz.quizId">
-      <td>{{quiz.quizType}}</td>
-      <td>{{quiz.quizName}}</td>
-      <td>PLAY</td>
-      <td>ADD</td>
+      <td>{{ quiz.quizType }}</td>
+      <td>{{ quiz.quizName }}</td>
+      <td>
+        <font-awesome-icon icon="fa-solid fa-play"/>
+      </td>
+      <td>
+        <font-awesome-icon icon="fa-solid fa-plus"/>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -27,7 +31,7 @@ export default {
   },
   methods: {
     getPublicQuizzes: function () {
-      this.$http.get("/menu/public")
+      this.$http.get("/quiz/public")
           .then(response => {
             this.quizzes = response.data
           })
