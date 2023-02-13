@@ -1,6 +1,9 @@
 <template>
   <div>
     <input type="file" v-on:change="handleImage" accept="image/x-png,image/jpeg">
+    <div v-if="pictureDataBase64 != String" >
+      <img :src=pictureDataBase64 class="img-thumbnail" alt="...">
+    </div>
   </div>
 </template>
 
