@@ -3,10 +3,12 @@
   <div class="row justify-content-center">
     <div class="col-4">
       <AddQuestionText ref="addQuestionText" @emitAddQuestionText="setQuestionText"/>
-      <!--      <AddQuestionPicture ref="addQuestionPicture" @emitAddQuestionPicture="setQuestionPicture"/>-->
       <ImageInput @emitBase64Event="setQuestionPicture"/>
-      <div class="mb-3">
+      <div class="mb-3" v-if="!isShown">
         <button v-on:click="addQuestion" type="button" class="btn btn-success">Save question</button>
+      </div>
+      <div class="mb-3" v-if="isShown">
+        <button v-on:click="" type="button" class="btn btn-dark">Edit question</button>
       </div>
       <div v-if="isShown">
         <AddFlashcardAnswer :question-id="questionId" />
@@ -43,6 +45,9 @@ export default {
   },
 
   methods: {
+
+
+
     addQuestion: function () {
       this.$refs.addQuestionText.emitAddQuestionText();
       this.postQuestion()

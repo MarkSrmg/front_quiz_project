@@ -3,7 +3,10 @@
     <div>
       <AddAnswerText ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
       <div class="mb-3">
-        <button v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
+        <button v-if="!isShown" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
+      </div>
+      <div class="mb-3" v-if="isShown">
+        <button v-on:click="" type="button" class="btn btn-dark">Edit answer</button>
       </div>
     </div>
     <div v-if="isShown">
@@ -26,7 +29,7 @@ export default {
   data: function () {
     return {
 
-      answerId: 0,
+      answerId: Number(this.$route.query.answerId),
       answerDto: {
         answerText: '',
         answerPicture: '',
