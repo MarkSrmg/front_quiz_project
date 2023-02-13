@@ -3,23 +3,11 @@
     <div class="row justify-content-center">
       <PlayError :menu="menu" :message="message"/>
       <div v-if="message == ''" class="row justify-content-center">
-        <div class="col-3 p-3 mb-2 bg-secondary text-white bg-opacity-25">
-          {{ questionResponse.questionText }}
+        <div class="col-3">
+          <PlayQuestion :question-response="questionResponse"/>
         </div>
-        <div v-if="questionResponse.questionPicture != null">
-          <!-- TODO Pilt peab andmebaasis juba base64 String olema et siin kuvada-->
-          <img :src=questionResponse.questionPicture class="img-thumbnail" alt="...">
-        </div>
-        <div v-if="!showFCAnswer">
-          <button v-on:click="showFCAnswer = true" type="button" class="btn btn-dark">Näita vastust</button>
-        </div>
-        <div v-if="showFCAnswer" v-for="answer in questionResponse.answers" class="text-white">
-          {{ answer.answerText }}
-        </div>
-        <div v-if="showFCAnswer">
-          <button v-on:click="increaseQuestionCounter" type="button" class="btn btn-dark">Vastasin õigesti</button>
-          <button v-on:click="getQuestion" type="button" class="btn btn-dark">Vastasin valesti</button>
-        </div>
+        <PlayFlashcardAnswer :get-next-question="getNextQuestion" :increase-question-counter="increaseQuestionCounter"
+                            :question-response="questionResponse" ref="playFlashcardAnswer"/>
       </div>
     </div>
   </div>
@@ -27,14 +15,15 @@
 
 <script>
 import PlayError from "@/components/play/PlayError.vue";
+import PlayQuestion from "@/components/play/AddQuestion/PlayQuestion.vue";
+import PlayFlashcardAnswer from "@/components/play/PlayFlashcardAnswer.vue";
 
 export default {
   name: "PlayView",
-  components: {PlayError},
+  components: {PlayFlashcardAnswer, PlayQuestion, PlayError},
   data: function () {
     return {
       quizId: Number(this.$route.query.quizId),
-      showFCAnswer: false,
       message: '',
       apiError: {
         errorCode: '',
@@ -62,8 +51,12 @@ export default {
       this.$router.push({name: 'menuRoute'})
     },
 
+    getNextQuestion: function (){
+      this.$refs.playFlashcardAnswer.setShowFCAnswer();
+      this.getQuestion()
+    },
+
     getQuestion: function () {
-      this.showFCAnswer = false
       this.$http.get("/play", {
             params: {
               quizId: this.quizId,
@@ -80,7 +73,7 @@ export default {
     },
     increaseQuestionCounter: function () {
       this.putIncreaseQuestionCounter();
-      this.getQuestion();
+      this.getNextQuestion();
     },
 
     putIncreaseQuestionCounter: function () {
@@ -91,7 +84,6 @@ export default {
             }
           }
       ).then(response => {
-        alert(Salvestatud)
         console.log(response.data)
       }).catch(error => {
         console.log(error)
