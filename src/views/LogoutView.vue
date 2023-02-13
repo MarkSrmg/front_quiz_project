@@ -13,6 +13,7 @@ export default {
     userLogout: function () {
       sessionStorage.clear();
       this.$router.push({name: 'loginRoute'})
+      window.location.reload();
     }
   }
 }
