@@ -4,14 +4,34 @@
 
       <router-link to="/menu">Menu</router-link>
       |
-      <router-link to="/login">Login</router-link>
+      <router-link v-if="userLoggedIn" to="/logout">Log out</router-link>
+      <router-link v-if="!userLoggedIn" to="/login">Login</router-link>
       |
       <router-link to="/quiz">Add Quiz</router-link>
     </nav>
-    <router-view/>
+    <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
   </div>
 </template>
-
+<script>
+export default {
+  name: "App",
+  data: function () {
+    return {
+      userId: sessionStorage.getItem('userId'),
+      userLoggedIn: false
+    }
+  },
+  methods: {
+    updateNavigationMenu: function () {
+      this.userId = sessionStorage.getItem('userId')
+      this.userLoggedIn = this.userId != null
+    },
+  },
+  created() {
+    this.updateNavigationMenu()
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -28,6 +48,7 @@ body {
   background-size: cover;
   -o-background-size: cover;
 }
+
 nav {
   padding: 30px;
 }
