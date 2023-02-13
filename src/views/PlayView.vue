@@ -15,7 +15,7 @@
 
 <script>
 import PlayError from "@/components/play/PlayError.vue";
-import PlayQuestion from "@/components/play/AddQuestion/PlayQuestion.vue";
+import PlayQuestion from "@/components/AddQuestion/PlayQuestion.vue";
 import PlayFlashcardAnswer from "@/components/play/PlayFlashcardAnswer.vue";
 
 export default {

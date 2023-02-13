@@ -21,7 +21,7 @@
 
 </template>
 <script>
-import AddQuestionText from "@/components/play/AddQuestion/AddQuestionText.vue";
+import AddQuestionText from "@/components/AddQuestion/AddQuestionText.vue";
 import ImageInput from "@/components/ImageInput.vue";
 import AddFlashcardAnswer from "@/components/AddAnswer/AddFlashcardAnswer.vue";
 
