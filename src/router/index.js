@@ -6,6 +6,7 @@ import LoginView from "@/views/LoginView.vue";
 import MenuView from "@/views/MenuView.vue";
 import PlayView from "@/views/PlayView.vue";
 import AddQuestionView from "@/views/AddQuestionView.vue";
+import LogoutView from "@/views/LogoutView.vue";
 
 Vue.use(VueRouter)
 
@@ -14,6 +15,11 @@ const routes = [
     path: '/questions',
     name: 'addQuestionRoute',
     component: AddQuestionView
+  },
+  {
+    path: '/logout',
+    name: 'logoutRoute',
+    component: LogoutView
   },
   {
     path: '/quiz',
