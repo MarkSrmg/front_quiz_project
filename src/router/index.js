@@ -7,6 +7,7 @@ import MenuView from "@/views/MenuView.vue";
 import PlayView from "@/views/PlayView.vue";
 import AddQuestionView from "@/views/AddQuestionView.vue";
 import LogoutView from "@/views/LogoutView.vue";
+import EditView from "@/views/EditView.vue";
 
 Vue.use(VueRouter)
 
@@ -32,30 +33,20 @@ const routes = [
     component: MenuView
   },
   {
-    path: '/',
-    name: 'homeRoute',
-    component: HomeView
-  },
-  {
     path: '/play',
     name: 'playRoute',
     component: PlayView
+  }, {
+    path: '/edit',
+    name: 'editRoute',
+    component: EditView
   },
   {
     path: '/login',
     name: 'loginRoute',
     component: LoginView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-    }
   }
+
 ]
 
 const router = new VueRouter({
