@@ -6,7 +6,7 @@
       <td>{{ quiz.quizType }}</td>
       <td>{{ quiz.quizName }}</td>
       <td>
-        <font-awesome-icon icon="fa-solid fa-play"/>
+        <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play"/>
       </td>
       <td>
         <font-awesome-icon icon="fa-solid fa-plus"/>
@@ -39,6 +39,9 @@ export default {
             console.log(error)
           })
     },
+    navigateToPlay: function (quizId) {
+      this.$router.push({name: 'playRoute', query: {quizId: quizId}})
+    }
   },
   beforeMount() {
     this.getPublicQuizzes()

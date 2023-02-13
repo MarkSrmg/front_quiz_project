@@ -11,7 +11,7 @@
         <font-awesome-icon icon="fa-solid fa-pencil"/>
       </td>
       <td>
-        <font-awesome-icon icon="fa-solid fa-arrows-rotate"/>
+        <font-awesome-icon v-on:click="resetCounter(quiz.quizId)" icon="fa-solid fa-arrows-rotate"/>
       </td>
     </tr>
     </tbody>
@@ -25,7 +25,6 @@ export default {
   },
   data: function () {
     return {
-
       quizzes: [
         {
           quizId: 0,
@@ -49,9 +48,24 @@ export default {
         console.log(error)
       })
     },
+
     navigateToPlay: function (quizId) {
       this.$router.push({name: 'playRoute', query: {quizId: quizId}})
-    }
+    },
+
+    resetCounter: function (quizId) {
+      this.$http.put("/quiz", null, {
+            params: {
+              quizId: quizId
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
 
   },
   beforeMount() {
