@@ -8,7 +8,7 @@
         <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play"/>
       </td>
       <td>
-        <font-awesome-icon icon="fa-solid fa-pencil"/>
+        <font-awesome-icon icon="fa-solid fa-pencil" />
       </td>
       <td>
         <font-awesome-icon icon="fa-solid fa-arrows-rotate"/>
