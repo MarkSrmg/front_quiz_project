@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AddQuiz from "@/views/AddQuiz.vue";
+import AddQuizView from "@/views/AddQuizView.vue";
 import LoginView from "@/views/LoginView.vue";
 import MenuView from "@/views/MenuView.vue";
 import PlayView from "@/views/PlayView.vue";
 import AddQuestionView from "@/views/AddQuestionView.vue";
+import LogoutView from "@/views/LogoutView.vue";
+import EditView from "@/views/EditView.vue";
 
 Vue.use(VueRouter)
 
@@ -16,9 +18,14 @@ const routes = [
     component: AddQuestionView
   },
   {
+    path: '/logout',
+    name: 'logoutRoute',
+    component: LogoutView
+  },
+  {
     path: '/quiz',
     name: 'addQuizRoute',
-    component: AddQuiz
+    component: AddQuizView
   },
   {
     path: '/menu',
@@ -26,30 +33,20 @@ const routes = [
     component: MenuView
   },
   {
-    path: '/',
-    name: 'homeRoute',
-    component: HomeView
-  },
-  {
     path: '/play',
     name: 'playRoute',
     component: PlayView
+  }, {
+    path: '/edit',
+    name: 'editRoute',
+    component: EditView
   },
   {
     path: '/login',
     name: 'loginRoute',
     component: LoginView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-    }
   }
+
 ]
 
 const router = new VueRouter({

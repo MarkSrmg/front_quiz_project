@@ -3,24 +3,23 @@
   <div class="row justify-content-center">
     <div class="col-4">
       <AddQuestionText ref="addQuestionText" @emitAddQuestionText="setQuestionText"/>
-      <!--      <AddQuestionPicture ref="addQuestionPicture" @emitAddQuestionPicture="setQuestionPicture"/>-->
       <ImageInput @emitBase64Event="setQuestionPicture"/>
-      <div class="mb-3">
+      <div class="mb-3" v-if="!isShown">
         <button v-on:click="addQuestion" type="button" class="btn btn-success">Save question</button>
       </div>
+      <div class="mb-3" v-if="isShown">
+        <button v-on:click="editQuestion" type="button" class="btn btn-dark">Edit question</button>
+      </div>
       <div v-if="isShown">
-        <AddFlashcardAnswer :question-id="questionId" />
+        <AddFlashcardAnswer :question-id="questionId"/>
 
       </div>
     </div>
 
 
-
-
   </div>
 
 </template>
-
 <script>
 import AddQuestionText from "@/components/AddQuestion/AddQuestionText.vue";
 import ImageInput from "@/components/ImageInput.vue";
@@ -43,6 +42,11 @@ export default {
   },
 
   methods: {
+    editQuestion: function () {
+      this.$refs.addQuestionText.emitAddQuestionText();
+      this.putQuestion()
+    },
+
     addQuestion: function () {
       this.$refs.addQuestionText.emitAddQuestionText();
       this.postQuestion()
@@ -61,10 +65,21 @@ export default {
               quizId: this.quizId
             }
           }
-
       ).then(response => {
         this.questionId = response.data.questionId
 
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    putQuestion: function () {
+      this.$http.put("/questions", this.questionRequest, {
+            params: {
+              questionId: this.questionId,
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })

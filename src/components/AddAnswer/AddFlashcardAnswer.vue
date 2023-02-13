@@ -3,7 +3,10 @@
     <div>
       <AddAnswerText ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
       <div class="mb-3">
-        <button v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
+        <button v-if="!isShown" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
+      </div>
+      <div class="mb-3" v-if="isShown">
+        <button v-on:click="editAnswer" type="button" class="btn btn-dark">Edit answer</button>
       </div>
     </div>
     <div v-if="isShown">
@@ -25,9 +28,8 @@ export default {
   },
   data: function () {
     return {
-
-      answerId: 0,
-      answerDto: {
+      answerId: Number(this.$route.query.answerId),
+      answerRequest: {
         answerText: '',
         answerPicture: '',
         answerIsCorrect: true
@@ -36,22 +38,39 @@ export default {
     }
   },
   methods: {
+    editAnswer: function () {
+      this.$refs.addAnswerText.emitAddAnswerText();
+      this.putAnswer()
+    },
+
     addAnswer: function () {
       this.$refs.addAnswerText.emitAddAnswerText();
       this.postAnswer()
       this.isShown = true
     },
     setAnswerText: function (answerText) {
-      this.answerDto.answerText = answerText
+      this.answerRequest.answerText = answerText
     },
     postAnswer: function () {
-      this.$http.post("/questions/answer", this.answerDto, {
+      this.$http.post("/questions/answer", this.answerRequest, {
             params: {
               questionId: this.questionId
             }
           }
       ).then(response => {
         this.answerId = response.data.answerId
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    putAnswer: function () {
+      this.$http.put("/questions/answer", this.answerRequest, {
+            params: {
+              answerId: this.answerId
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
