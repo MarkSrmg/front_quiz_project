@@ -52,8 +52,6 @@ export default {
   data: function () {
     return {
       userId: sessionStorage.getItem('userId'),
-      isShownUser: false,
-      isShownPublic: false,
       display5LastPublicButton: false,
       display5LastPrivateButton: false
     }
