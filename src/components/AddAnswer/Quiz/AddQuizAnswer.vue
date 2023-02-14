@@ -2,6 +2,9 @@
   <div class="row justify-content-center">
     <div>
       <AddAnswerText ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
+      <div>
+        <image-input @emitBase64Event="setAnswerPicture"/>
+      </div>
       <div class="mb-3">
         <button v-if="!isShown" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
       </div>
@@ -10,7 +13,7 @@
       </div>
     </div>
     <div v-if="isShown">
-      <FlashcardNavigation/>
+      <QuizAnswerNavigation :answerRequest="answerRequest" :answerId="answerId"/>
     </div>
 
   </div>
@@ -18,11 +21,13 @@
 <script>
 
 import AddAnswerText from "@/components/AddAnswer/AddAnswerText.vue";
-import FlashcardNavigation from "@/components/AddAnswer/FlashcardNavigation.vue";
+import ImageInput from "@/components/ImageInput.vue";
+import QuizAnswerNavigation from "@/components/AddAnswer/Quiz/QuizAnswerNavigation.vue";
+
 
 export default {
-  name: 'AddFlashcardAnswer',
-  components: {FlashcardNavigation, AddAnswerText},
+  name: 'AddQuizAnswer',
+  components: {QuizAnswerNavigation, ImageInput, AddAnswerText},
   props: {
     questionId: {}
   },
@@ -32,12 +37,15 @@ export default {
       answerRequest: {
         answerText: '',
         answerPicture: '',
-        answerIsCorrect: true
+        answerIsCorrect: false
       },
       isShown: false
     }
   },
   methods: {
+    setAnswerPicture: function (pictureDataBase64) {
+      this.answerRequest.answerPicture = pictureDataBase64
+    },
     editAnswer: function () {
       this.$refs.addAnswerText.emitAddAnswerText();
       this.putAnswer()

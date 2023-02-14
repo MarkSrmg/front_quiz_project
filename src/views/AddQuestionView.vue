@@ -1,5 +1,4 @@
 <template>
-
   <div class="row justify-content-center">
     <div class="col-4">
       <AddQuestionText ref="addQuestionText" @emitAddQuestionText="setQuestionText"/>
@@ -11,7 +10,9 @@
         <button v-on:click="editQuestion" type="button" class="btn btn-dark">Edit question</button>
       </div>
       <div v-if="isShown">
-        <AddFlashcardAnswer v-if="questionRequest.questionType === 'F'" :question-id="questionId"/>
+          <AddNewQuizAnswer v-if="isQuiz" :question-id="questionId"/>
+          <AddFlashcardAnswer v-if="!isQuiz" :question-id="questionId"/>
+
       </div>
     </div>
 
@@ -22,21 +23,25 @@
 <script>
 import AddQuestionText from "@/components/AddQuestion/AddQuestionText.vue";
 import ImageInput from "@/components/ImageInput.vue";
-import AddFlashcardAnswer from "@/components/AddAnswer/AddFlashcardAnswer.vue";
+import AddFlashcardAnswer from "@/components/AddAnswer/Flashcard/AddFlashcardAnswer.vue";
+import AddNewQuizAnswer from "@/components/AddAnswer/Quiz/AddQuizAnswer.vue";
+
 
 export default {
   name: "AddQuestion",
-  components: {AddFlashcardAnswer, ImageInput, AddQuestionText},
+  components: {AddNewQuizAnswer, AddFlashcardAnswer, ImageInput, AddQuestionText},
   data: function () {
     return {
       questionId: Number(this.$route.query.questionId),
       quizId: Number(this.$route.query.quizId),
+      quizType: String(this.$route.query.quizType),
       questionRequest: {
         questionText: '',
         questionPicture: '',
         questionType: String(this.$route.query.quizType)
       },
-      isShown: false
+      isShown: false,
+      isQuiz: false
     }
   },
 
@@ -66,7 +71,6 @@ export default {
           }
       ).then(response => {
         this.questionId = response.data.questionId
-
       }).catch(error => {
         console.log(error)
       })
@@ -83,8 +87,9 @@ export default {
         console.log(error)
       })
     },
-
+  },
+  beforeMount() {
+    this.isQuiz = this.quizType === 'Q'
   }
-
 }
 </script>

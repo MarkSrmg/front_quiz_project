@@ -3,6 +3,7 @@
     <div class="col-11">
       <hr class="solid">
     </div>
+
 <!--    <div class="mb-3">-->
 <!--      <button type="button" class="btn btn-dark">Previous question</button>-->
 <!--    </div>-->
@@ -19,10 +20,11 @@
 </template>
 <script>
 export default {
-  name: 'FlashcardNavigation',
+  name: 'FlashcardAnswerNavigation',
   data: function () {
     return {
       quizId: Number(this.$route.query.quizId),
+
     }
   },
   methods: {
