@@ -4,7 +4,7 @@
     <AlertSuccess :message="message"/>
   </div>
   <div>
-    <table class="table table-borderless table-hover text-white text fw-bold">
+    <table class="table table-borderless table-hover text-white text fw-bold" style="background-color: rgba(0, 0, 0, 0.25);">
       <tbody>
       <tr v-for="quiz in quizzes" :key="quiz.quizId">
         <td>{{ quiz.quizType }}</td>
