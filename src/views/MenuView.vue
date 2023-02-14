@@ -8,20 +8,20 @@
     <div class="row justify-content-center">
 
       <div class="col-5">
-        <UserQuizzesTable :user-id="userId"/>
+        <UserQuizzesTable ref="userQuizzesTable" :user-id="userId"/>
       </div>
 
       <div class="col-5">
-        <PublicQuizzesTable/>
+        <PublicQuizzesTable ref="publicQuizzesTable" />
       </div>
 
       <div class="row justify-content-center">
         <div class="col-5">
-          <button type="button" class="btn btn-outline-secondary text-white">Show All My Quizzes</button>
+          <button v-on:click="showAllUserQuizzes" type="button" class="btn btn-outline-secondary text-white">Show All My Quizzes</button>
         </div>
 
         <div class="col-5">
-          <button type="button" class="btn btn-outline-secondary text-white">Show All Public Quizzes</button>
+          <button v-on:click="showAllPublicQuizzes" type="button" class="btn btn-outline-secondary text-white">Show All Public Quizzes</button>
         </div>
 
       </div>
@@ -46,9 +46,17 @@ export default {
   },
 
   methods: {
-      navigateToAddQuiz: function () {
-        this.$router.push({name: 'addQuizRoute'})
-      }
+    navigateToAddQuiz: function () {
+      this.$router.push({name: 'addQuizRoute'})
+    },
+
+    showAllUserQuizzes: function () {
+      this.$refs.userQuizzesTable.getUserQuizzes()
+    },
+
+    showAllPublicQuizzes: function () {
+      this.$refs.publicQuizzesTable.getPublicQuizzes()
+    }
 
   }
 }
