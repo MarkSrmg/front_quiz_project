@@ -1,5 +1,5 @@
 <template>
-  <table class="table table-dark table-borderless table-hover">
+  <table class="table table-borderless table-hover text-white fw-bold">
 
     <tbody>
     <tr v-for="quiz in quizzes" :key="quiz.quizId">
