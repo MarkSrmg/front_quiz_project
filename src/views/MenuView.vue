@@ -12,20 +12,30 @@
       </div>
 
       <div class="col-5">
-        <PublicQuizzesTable ref="publicQuizzesTable" />
+        <PublicQuizzesTable ref="publicQuizzesTable"/>
       </div>
 
       <div class="row justify-content-center">
         <div class="col-5">
-          <button v-on:click="showAllUserQuizzes" type="button" class="btn btn-outline-secondary text-white">Show All My Quizzes</button>
+
+          <button v-if="display5LastPrivateButton" v-on:click="show5UserQuizzes" type="button"
+                  class="btn btn-outline-secondary text-white">Show 5 latest
+          </button>
+          <button v-else v-on:click="showAllUserQuizzes" type="button" class="btn btn-outline-secondary text-white">Show All My
+            Quizzes
+          </button>
+
+
         </div>
 
         <div class="col-5">
-          <button v-on:click="showAllPublicQuizzes" type="button" class="btn btn-outline-secondary text-white">Show All Public Quizzes</button>
+
+          <button v-if="display5LastPublicButton" v-on:click="show5PublicQuizzes" type="button" class="btn btn-outline-secondary text-white">Show 5 Latest</button>
+          <button v-else v-on:click="showAllPublicQuizzes" type="button" class="btn btn-outline-secondary text-white">Show All
+            Public Quizzes
+          </button>
         </div>
-
       </div>
-
     </div>
   </div>
 
@@ -42,6 +52,8 @@ export default {
   data: function () {
     return {
       userId: sessionStorage.getItem('userId'),
+      display5LastPublicButton: false,
+      display5LastPrivateButton: false
     }
   },
 
@@ -52,11 +64,24 @@ export default {
 
     showAllUserQuizzes: function () {
       this.$refs.userQuizzesTable.getUserQuizzes()
+      this.display5LastPrivateButton = true
     },
 
     showAllPublicQuizzes: function () {
       this.$refs.publicQuizzesTable.getPublicQuizzes()
+      this.display5LastPublicButton = true
+    },
+
+    show5UserQuizzes: function () {
+      this.$refs.userQuizzesTable.getUserLast5Quizzes()
+      this.display5LastPrivateButton = false
+    },
+
+    show5PublicQuizzes: function () {
+      this.$refs.publicQuizzesTable.getPublicLast5Quizzes()
+      this.display5LastPublicButton = false
     }
+
 
   }
 }

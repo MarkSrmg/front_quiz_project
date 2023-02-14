@@ -10,17 +10,23 @@
           <PlayFlashcardAnswer :get-next-question="getNextQuestion" :increase-question-counter="increaseQuestionCounter"
                                :question-response="questionResponse" ref="playFlashcardAnswer"/>
         </div>
-        <div>
+        <div v-if="questionResponse.questionType === 'Q'">
           <div v-for=" answer in questionResponse.answers" class="row  justify-content-center">
-            <div v-if="answer.answerPicture  != null" class=" col col-3  col-md-3 px-5">
-              <img :src=answer.answerPicture class="img-thumbnail" alt="..." style="width: 300px">
+            <div v-if="(answer.answerText != null) || (answer.answerPicture != null)" class="row justify-content-center">
+              <div v-if="answer.answerPicture  != null" class=" col col-3  col-md-3 px-5 my-2">
+                <img :src=answer.answerPicture class="img-thumbnail" alt="..." style="width: 200px">
+              </div>
+              <div v-if="answer.answerText !=null"
+                   class="col col-3 p-3 mb-2 px-5 bg-secondary text-white bg-opacity-25 align-self-center my-2">
+                {{ answer.answerText }}
+              </div>
+              <div class="col form-check col-1 align-self-center  col-md-3 px-5">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div>
             </div>
-            <div v-if="answer.answerText !=null"  class="col col-3 p-3 mb-2 px-5 bg-secondary text-white bg-opacity-25">
-              {{answer.answerText}}
-            </div>
-            <div v-if="(answer.answerText != null) && (answer.answerPicture != null)" class="col form-check col-1 align-self-center  col-md-3 px-5" >
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            </div>
+          </div>
+          <div>++++
+            <button type="button" class="btn btn-dark">Submit answer</button>
           </div>
         </div>
       </div>

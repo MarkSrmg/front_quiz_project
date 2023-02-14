@@ -1,14 +1,14 @@
 <template>
   <div>
     <div v-if="!showFCAnswer">
-      <button v-on:click="showFCAnswer = true" type="button" class="btn btn-dark">Näita vastust</button>
+      <button v-on:click="showFCAnswer = true" type="button" class="btn btn-dark">Show answer</button>
     </div>
     <div v-if="showFCAnswer" v-for="answer in questionResponse.answers" class="text-white">
       {{ answer.answerText }}
     </div>
     <div v-if="showFCAnswer">
-      <button v-on:click="increaseQuestionCounter" type="button" class="btn btn-dark">Vastasin õigesti</button>
-      <button v-on:click="getNextQuestion" type="button" class="btn btn-dark">Vastasin valesti</button>
+      <button v-on:click="increaseQuestionCounter" type="button" class="btn btn-dark">Answer was correct</button>
+      <button v-on:click="getNextQuestion" type="button" class="btn btn-dark">Answer was wrong</button>
     </div>
   </div>
 </template>
