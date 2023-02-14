@@ -8,16 +8,24 @@
     <div class="row justify-content-center">
 
       <div class="col-5">
-
-
         <UserQuizzesTable :user-id="userId"/>
       </div>
 
       <div class="col-5">
         <PublicQuizzesTable/>
+      </div>
 
+      <div class="row justify-content-center">
+        <div class="col-5">
+          <button type="button" class="btn btn-outline-secondary text-white">Show All My Quizzes</button>
+        </div>
+
+        <div class="col-5">
+          <button type="button" class="btn btn-outline-secondary text-white">Show All Public Quizzes</button>
+        </div>
 
       </div>
+
     </div>
   </div>
 
