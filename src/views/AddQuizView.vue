@@ -69,7 +69,7 @@ export default {
         this.quizId = response.data.quizId
         this.$router.push({
           name: 'addQuestionRoute',
-          query: {quizId: String(this.quizId)}
+          query: {quizId: String(this.quizId), quizType: String(this.quizRequest.quizType)}
         })
       }).catch(error => {
         console.log(error)

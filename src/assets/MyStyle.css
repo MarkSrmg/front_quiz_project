@@ -2,6 +2,11 @@
 hr.solid {
     border-top: 3px solid #bbb;
 }
+.section{
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
 /*table tr td{*/
 /*    background-color: rgba(255, 255, 255, 0.3) !important;*/
 /*}*/

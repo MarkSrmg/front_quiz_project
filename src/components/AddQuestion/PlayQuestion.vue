@@ -4,7 +4,7 @@
       {{ questionResponse.questionText }}
     </div>
     <div v-if="questionResponse.questionPicture != null">
-      <img :src=questionResponse.questionPicture class="img-thumbnail" alt="...">
+      <img :src=questionResponse.questionPicture class="img-thumbnail" alt="..." style="width: 300px">
     </div>
   </div>
 </template>
