@@ -12,7 +12,6 @@
       </div>
       <div v-if="isShown">
         <AddFlashcardAnswer :question-id="questionId"/>
-
       </div>
     </div>
 

@@ -21,7 +21,6 @@ export default {
     stayLoggedIn: function () {
       this.$router.push({name: 'menuRoute'})
     }
-
   }
 }
 </script>

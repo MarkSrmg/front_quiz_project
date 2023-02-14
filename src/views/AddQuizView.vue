@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row justify-content-center">
-      <div class="col-2">
+      <div class="col-3">
         <AddQuizName ref="addQuizName" @emitAddQuizName="setQuizName"/>
         <SelectQuizType ref="selectQuizType" @emitQuizTypeEvent="setQuizType"/>
         <AddCorrectAnswersNeeded ref="addCorrectAnswersNeeded" @emitRequiredCountEvent="setRequiredCount"/>
