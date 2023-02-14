@@ -39,12 +39,24 @@ export default {
             console.log(error)
           })
     },
+
+    getPublicLast5Quizzes: function () {
+      this.$http.get("/quiz/public/last-5")
+          .then(response => {
+            this.quizzes = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
+
+
     navigateToPlay: function (quizId) {
       this.$router.push({name: 'playRoute', query: {quizId: quizId}})
     }
   },
   beforeMount() {
-    this.getPublicQuizzes()
+    this.getPublicLast5Quizzes()
   }
 
 

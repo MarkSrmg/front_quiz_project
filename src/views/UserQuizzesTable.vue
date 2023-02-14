@@ -48,6 +48,19 @@ export default {
   },
   methods: {
 
+    getUserLast5Quizzes: function () {
+      this.$http.get("/quiz/user/last-5", {
+            params: {
+              userId: this.userId
+            }
+          }
+      ).then(response => {
+        this.quizzes = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
     getUserQuizzes: function () {
       this.$http.get("/quiz/user", {
             params: {
@@ -83,7 +96,7 @@ export default {
 
   },
   beforeMount() {
-    this.getUserQuizzes()
+    this.getUserLast5Quizzes()
   }
 }
 </script>
