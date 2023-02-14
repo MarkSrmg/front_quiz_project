@@ -21,12 +21,12 @@
                 {{ answer.answerText }}
               </div>
               <div class="col form-check col-1 align-self-center  col-md-3 px-5">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input v-model="answer.isSelected" class="form-check-input" type="checkbox"  id="flexCheckDefault">
               </div>
             </div>
           </div>
-          <div>++++
-            <button type="button" class="btn btn-dark">Submit answer</button>
+          <div>
+            <button v-on:click="submitAnswer" type="button" class="btn btn-dark">Submit answer</button>
           </div>
         </div>
       </div>
@@ -60,14 +60,34 @@ export default {
             answerId: 0,
             answerText: '',
             answerPicture: '',
-            isSelected: false
-
+            isSelected: false,
+            isCorrect: false,
           }
         ]
+      },
+      answerResponse:{
+
+
       }
     }
   },
   methods: {
+    submitAnswer: function (){
+      let submit = true;
+      for (let i = 0; i < this.questionResponse.answers.length ; i++) {
+        if(this.questionResponse.answers[i].isCorrect != this.questionResponse.answers[i].isSelected){
+          submit = false;
+        }
+      }
+      if (submit){
+        alert("Õige Vastus")
+        //   Put Right Answer
+      }
+      alert("Näita Vastuseid")
+      // Show Right Answer
+
+    },
+
     menu: function () {
       this.$router.push({name: 'menuRoute'})
     },
