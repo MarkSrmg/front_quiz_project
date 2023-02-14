@@ -27,7 +27,7 @@ export default {
       this.userLoggedIn = this.userId != null
     },
   },
-  created() {
+  mounted() {
     this.updateNavigationMenu()
   }
 }
