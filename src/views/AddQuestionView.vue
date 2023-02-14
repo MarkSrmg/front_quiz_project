@@ -34,7 +34,7 @@ export default {
       questionRequest: {
         questionText: '',
         questionPicture: '',
-        questionType: ''
+        questionType: String(this.$route.query.quizType)
       },
       isShown: false
     }
