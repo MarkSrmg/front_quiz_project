@@ -28,7 +28,6 @@ export default {
   methods: {
     nextQuestion: function () {
       window.location.reload();
-      this.$router.push({name: 'menuRoute'})
     },
     finishQuiz: function () {
       this.$router.push({name: 'menuRoute'})

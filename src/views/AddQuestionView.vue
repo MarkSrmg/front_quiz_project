@@ -11,7 +11,7 @@
         <button v-on:click="editQuestion" type="button" class="btn btn-dark">Edit question</button>
       </div>
       <div v-if="isShown">
-        <AddFlashcardAnswer :question-id="questionId"/>
+        <AddFlashcardAnswer v-if="questionRequest.questionType === 'F'" :question-id="questionId"/>
       </div>
     </div>
 
