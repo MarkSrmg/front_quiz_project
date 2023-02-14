@@ -1,5 +1,5 @@
 <template>
-  <table class="table table-borderless table-hover text-white fw-bold">
+  <table class="table table-borderless table-hover text-white fw-bold" style="background-color: rgba(0, 0, 0, 0.25">
 
     <tbody>
     <tr v-for="quiz in quizzes" :key="quiz.quizId">
@@ -39,12 +39,24 @@ export default {
             console.log(error)
           })
     },
+
+    getPublicLast5Quizzes: function () {
+      this.$http.get("/quiz/public/last-5")
+          .then(response => {
+            this.quizzes = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
+
+
     navigateToPlay: function (quizId) {
       this.$router.push({name: 'playRoute', query: {quizId: quizId}})
     }
   },
   beforeMount() {
-    this.getPublicQuizzes()
+    this.getPublicLast5Quizzes()
   }
 
 

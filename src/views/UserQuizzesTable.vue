@@ -4,7 +4,7 @@
     <AlertSuccess :message="message"/>
   </div>
   <div>
-    <table class="table table-borderless table-hover text-white text fw-bold">
+    <table class="table table-borderless table-hover text-white text fw-bold" style="background-color: rgba(0, 0, 0, 0.25);">
       <tbody>
       <tr v-for="quiz in quizzes" :key="quiz.quizId">
         <td>{{ quiz.quizType }}</td>
@@ -48,6 +48,19 @@ export default {
   },
   methods: {
 
+    getUserLast5Quizzes: function () {
+      this.$http.get("/quiz/user/last-5", {
+            params: {
+              userId: this.userId
+            }
+          }
+      ).then(response => {
+        this.quizzes = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
     getUserQuizzes: function () {
       this.$http.get("/quiz/user", {
             params: {
@@ -83,7 +96,7 @@ export default {
 
   },
   beforeMount() {
-    this.getUserQuizzes()
+    this.getUserLast5Quizzes()
   }
 }
 </script>
