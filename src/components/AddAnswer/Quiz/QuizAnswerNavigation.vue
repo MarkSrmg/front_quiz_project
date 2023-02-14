@@ -22,8 +22,7 @@
 export default {
   name: 'QuizAnswerNavigation',
   props:{
-    answerRequest: {},
-    answerId: {}
+    questionId: {}
   },
   data: function () {
     return {

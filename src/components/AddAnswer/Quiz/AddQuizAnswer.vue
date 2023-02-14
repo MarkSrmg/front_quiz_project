@@ -13,7 +13,7 @@
       </div>
     </div>
     <div v-if="isShown">
-      <QuizAnswerNavigation :answerRequest="answerRequest" :answerId="answerId"/>
+      <QuizAnswerNavigation :question-id="questionId"/>
     </div>
 
   </div>
