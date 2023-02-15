@@ -8,6 +8,12 @@ hr.solid {
     margin-right: 10px !important;
 }
 
+.table-hover tbody tr:hover,
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th{
+    background: rgba(63, 0, 35, 0.58) !important;
+    color:#fff !important;
+}
 /*table tr td{*/
 /*    background-color: rgba(255, 255, 255, 0.3) !important;*/
 /*}*/

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="justify-content-start">
+    <div class="justify-content-start my-3">
 
       <button v-on:click="navigateToAddQuiz" type="button" class="btn btn-dark btn-lg">Create New Quiz</button>
     </div>
