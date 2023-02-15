@@ -10,13 +10,13 @@
         <td>{{ quiz.quizType }}</td>
         <td>{{ quiz.quizName }}</td>
         <td>
-          <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play"/>
+          <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play" class="icon-hover"/>
         </td>
         <td>
-          <font-awesome-icon icon="fa-solid fa-pencil"/>
+          <font-awesome-icon icon="fa-solid fa-pencil" class="icon-hover"/>
         </td>
         <td>
-          <font-awesome-icon v-on:click="resetCounter(quiz.quizId)" icon="fa-solid fa-arrows-rotate"/>
+          <font-awesome-icon v-on:click="resetCounter(quiz.quizId)" icon="fa-solid fa-arrows-rotate" class="icon-hover"/>
         </td>
       </tr>
       </tbody>
