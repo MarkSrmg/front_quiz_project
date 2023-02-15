@@ -4,7 +4,10 @@
       <div v-if="(answer.answerText != null) || (answer.answerPicture != null)"
            class="row justify-content-center">
         <div v-if="answer.answerPicture  != null" class=" col col-3  col-md-3 px-5 my-2">
-          <img :src=answer.answerPicture class="img-thumbnail" alt="..." style="width: 200px">
+          <img :src=answer.answerPicture class="img-fluid rounded border border-4" alt="..." style="width: 200px"
+               :class="{'border-white' : String(answer.isAnswered) === 'unanswered',
+                   'border-danger' : String(answer.isAnswered) === 'false',
+                   'border-success' : String(answer.isAnswered) === 'correct'}">
         </div>
         <div v-if="answer.answerText !=null"
              :class="{'bg-secondary' : String(answer.isAnswered) === 'unanswered',
@@ -14,7 +17,7 @@
           {{ answer.answerText }}
         </div>
         <div class="col form-check col-1 align-self-center  col-md-3 px-5">
-          <input v-model="answer.isSelected" class="form-check-input" type="checkbox" id="flexCheckDefault">
+          <input v-model="answer.isSelected" :disabled="!submitButton" class="form-check-input" type="checkbox" id="flexCheckDefault">
         </div>
       </div>
     </div>

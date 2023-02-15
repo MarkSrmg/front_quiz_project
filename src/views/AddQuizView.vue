@@ -5,6 +5,7 @@
         <AddQuizName ref="addQuizName" @emitAddQuizName="setQuizName"/>
         <SelectQuizType ref="selectQuizType" @emitQuizTypeEvent="setQuizType"/>
         <AddCorrectAnswersNeeded ref="addCorrectAnswersNeeded" @emitRequiredCountEvent="setRequiredCount"/>
+        <AlertDanger :message="message"/>
         <div>
           <button v-on:click="addQuiz" type="button" class="btn btn-dark">Create</button>
         </div>
@@ -21,6 +22,7 @@ import AddQuizName from "@/components/AddQuiz/AddQuizName.vue";
 import SelectQuizType from "@/components/AddQuiz/SelectQuizType.vue";
 import AddCorrectAnswersNeeded from "@/components/AddQuiz/AddCorrectAnswersNeeded.vue";
 import addQuizName from "@/components/AddQuiz/AddQuizName.vue";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
   name: "AddQuiz",
@@ -29,9 +31,10 @@ export default {
       return addQuizName
     }
   },
-  components: {AddCorrectAnswersNeeded, SelectQuizType, AddQuizName},
+  components: {AlertDanger, AddCorrectAnswersNeeded, SelectQuizType, AddQuizName},
   data: function () {
     return {
+      message: '',
       userId: sessionStorage.getItem('userId'),
       roleName: sessionStorage.getItem('roleName'),
       quizId: 0,
@@ -47,7 +50,12 @@ export default {
       this.$refs.addQuizName.emitAddQuizName()
       this.$refs.addCorrectAnswersNeeded.emitRequiredCount()
       this.$refs.selectQuizType.emitQuizType()
-      this.postQuiz()
+      this.message = '';
+        if (this.quizRequest.quizName === '' || this.quizRequest.quizType === '') {
+          this.message = 'Please fill out all required fields'
+        } else {
+          this.postQuiz()
+        }
     },
 
     setQuizName: function (quizName) {
