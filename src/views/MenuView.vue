@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import UserQuizzesTable from "@/views/UserQuizzesTable.vue";
-import PublicQuizzesTable from "@/views/PublicQuizzesTable.vue";
+import UserQuizzesTable from "@/components/menu/UserQuizzesTable.vue";
+import PublicQuizzesTable from "@/components/menu/PublicQuizzesTable.vue";
 
 export default {
   name: "MenuView",
