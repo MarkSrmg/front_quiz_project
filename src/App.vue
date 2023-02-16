@@ -2,12 +2,12 @@
   <div id="app">
     <nav>
 
-      <router-link to="/menu">Menu</router-link>
-      |
+      <router-link v-if="userLoggedIn" to="/menu">Menu|</router-link>
+
       <router-link v-if="userLoggedIn" to="/logout">Log out</router-link>
       <router-link v-if="!userLoggedIn" to="/login">Login</router-link>
-      |
-      <router-link to="/quiz">Add Quiz</router-link>
+
+      <router-link v-if="userLoggedIn" to="/quiz">|Add Quiz</router-link>
     </nav>
     <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
   </div>

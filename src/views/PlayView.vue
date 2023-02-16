@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <PlayError :menu="menu" :message="message"/>
       <div v-if="message == ''" class="row justify-content-center">
-        <div class="col-3">
+        <div class="col-3 my-3 ">
           <PlayQuestion :question-response="questionResponse"/>
         </div>
         <div v-if="questionResponse.questionType === 'F'">
@@ -32,6 +32,7 @@ export default {
   data: function () {
     return {
       quizId: Number(this.$route.query.quizId),
+      isPublic: Number(this.$route.query.isPublic),
       message: '',
       submitButton: true,
       apiError: {
@@ -104,7 +105,9 @@ export default {
       })
     },
     increaseQuestionCounter: function () {
-      this.putIncreaseQuestionCounter();
+      if (!this.isPublic){
+        this.putIncreaseQuestionCounter();
+      }
       this.getNextFlashCardQuestion();
     },
 
