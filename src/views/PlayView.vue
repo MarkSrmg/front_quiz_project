@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row justify-content-center">
-      <PlayError :menu="menu" :message="message"/>
+      <PlayError :menu="menu" :message="message" :error-code="errorCode"/>
       <div v-if="message == ''" class="row justify-content-center">
         <div class="col-3 my-3 ">
           <PlayQuestion :question-response="questionResponse"/>
@@ -34,6 +34,7 @@ export default {
       quizId: Number(this.$route.query.quizId),
       isPublic: Number(this.$route.query.isPublic),
       message: '',
+      errorCode: '',
       submitButton: true,
       apiError: {
         errorCode: '',
@@ -102,6 +103,7 @@ export default {
       }).catch(error => {
         this.apiError = error.response.data
         this.message = this.apiError.message
+        this.errorCode = this.apiError.errorCode
       })
     },
     increaseQuestionCounter: function () {
