@@ -8,6 +8,7 @@
       <div class="mb-3">
         <button v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
       </div>
+      <AlertDanger :message="message"/>
 <!--      <div class="mb-3" v-if="isShown">-->
 <!--        <button v-on:click="editAnswer" type="button" class="btn btn-dark">Edit answer</button>-->
 <!--      </div>-->
@@ -23,10 +24,11 @@
 import AddAnswerText from "@/components/AddAnswer/AddAnswerText.vue";
 import ImageInput from "@/components/ImageInput.vue";
 import QuizAnswerNavigation from "@/components/AddAnswer/Quiz/QuizAnswerNavigation.vue";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
   name: 'AddQuizAnswer',
-  components: {QuizAnswerNavigation, ImageInput, AddAnswerText},
+  components: {AlertDanger, QuizAnswerNavigation, ImageInput, AddAnswerText},
   props: {
     questionId: {}
   },
@@ -39,6 +41,7 @@ export default {
         answerIsCorrect: false
       },
       isShown: false,
+      message: ''
     }
   },
   methods: {
@@ -47,8 +50,11 @@ export default {
     },
     addAnswer: function () {
       this.$refs.addAnswerText.emitAddAnswerText();
-      this.postAnswer();
-
+      if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === '') {
+        this.message = 'Please enter your answer'
+      } else {
+        this.postAnswer();
+      }
     },
     setAnswerText: function (answerText) {
       this.answerRequest.answerText = answerText

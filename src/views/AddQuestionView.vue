@@ -6,6 +6,7 @@
       <div class="mb-3" v-if="!isShown">
         <button v-on:click="addQuestion" type="button" class="btn btn-success">Save question</button>
       </div>
+      <AlertDanger :message="message"/>
       <div class="mb-3" v-if="isShown">
         <button v-on:click="editQuestion" type="button" class="btn btn-dark">Edit question</button>
       </div>
@@ -25,11 +26,12 @@ import AddQuestionText from "@/components/AddQuestion/AddQuestionText.vue";
 import ImageInput from "@/components/ImageInput.vue";
 import AddFlashcardAnswer from "@/components/AddAnswer/Flashcard/AddFlashcardAnswer.vue";
 import AddNewQuizAnswer from "@/components/AddAnswer/Quiz/AddQuizAnswer.vue";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 
 export default {
   name: "AddQuestion",
-  components: {AddNewQuizAnswer, AddFlashcardAnswer, ImageInput, AddQuestionText},
+  components: {AlertDanger, AddNewQuizAnswer, AddFlashcardAnswer, ImageInput, AddQuestionText},
   data: function () {
     return {
       questionId: Number(this.$route.query.questionId),
@@ -41,7 +43,8 @@ export default {
         questionType: String(this.$route.query.quizType)
       },
       isShown: false,
-      isQuiz: false
+      isQuiz: false,
+      message: ''
     }
   },
 
@@ -53,8 +56,14 @@ export default {
 
     addQuestion: function () {
       this.$refs.addQuestionText.emitAddQuestionText();
-      this.postQuestion()
-      this.isShown = true
+      this.message = '';
+      if (this.questionRequest.questionText === '') {
+        this.message = 'Please enter your question'
+      } else {
+        this.postQuestion()
+        this.isShown = true
+      }
+
     },
 
     setQuestionText: function (questionText) {
