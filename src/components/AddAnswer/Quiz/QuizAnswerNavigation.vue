@@ -9,17 +9,21 @@
              style="background-color: rgba(0, 0, 0, 0);">
         <tbody>
         <tr v-for="answer in answers" :key="answer.answerId">
-          <td>{{answer.answerText}}</td>
+          <td>
+            <div v-if="!isEdit">
+              {{ answer.answerText }}
+            </div>
+          </td>
           <td>
             <div v-if="answer.answerPicture !== null">
               <img :src=answer.answerPicture class="img-thumbnail" alt="...">
             </div>
           </td>
           <td>
-            <font-awesome-icon icon="fa-solid fa-pencil"/>
+            <font-awesome-icon icon="fa-solid fa-pencil" class="icon-hover"/>
           </td>
           <td>
-            <font-awesome-icon icon="fa-solid fa-trash-can"/>
+            <font-awesome-icon icon="fa-solid fa-trash-can" class="icon-hover"/>
           </td>
           <td>
             <div class="form-check">
@@ -29,7 +33,6 @@
         </tr>
         </tbody>
       </table>
-
     </div>
     <!--    <div class="mb-3">-->
     <!--      <button type="button" class="btn btn-dark">Previous question</button>-->
@@ -61,12 +64,18 @@ export default {
           answerPicture: '',
           answerIsCorrect: false
         }
-      ]
+      ],
+      answerRequest: {
+        answerId: 0,
+        answerText: '',
+        answerPicture: '',
+        answerIsCorrect: false
+      },
+      isEdit: false
     }
   },
   methods: {
     editAnswer: function () {
-      this.$refs.addAnswerText.emitAddAnswerText();
       this.putAnswer()
     },
     nextQuestion: function () {
