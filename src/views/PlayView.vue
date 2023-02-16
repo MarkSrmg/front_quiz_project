@@ -32,7 +32,7 @@ export default {
   data: function () {
     return {
       quizId: Number(this.$route.query.quizId),
-      isPublic: Number(this.$route.query.isPublic),
+      isPublic: Boolean(this.$route.query.isPublic),
       message: '',
       errorCode: '',
       submitButton: true,
@@ -59,6 +59,14 @@ export default {
     }
   },
   methods: {
+    menu: function () {
+      this.$router.push({name: 'menuRoute'})
+    },
+    getNextFlashCardQuestion: function () {
+      this.$refs.playFlashcardAnswer.setShowFCAnswer();
+      this.getQuestion()
+    },
+
     submitAnswer: function () {
       let submit = true;
       for (let i = 0; i < this.questionResponse.answers.length; i++) {
@@ -70,27 +78,37 @@ export default {
         }
       }
       if (submit) {
-        this.putIncreaseQuestionCounter()
+        this.increaseQuestionCounter()
       }
       this.submitButton = false;
-
     },
 
-    menu: function () {
-      this.$router.push({name: 'menuRoute'})
+    getQuestion: function (){
+      if (this.isPublic){
+        this.getPublicQuestion()
+      }else {
+        this.getUserQuestion()
+      }
     },
 
-    getNextFlashCardQuestion: function () {
-      this.$refs.playFlashcardAnswer.setShowFCAnswer();
-      this.getQuestion()
+    getPublicQuestion: function () {
+      this.$http.get("/play/public", {
+            params: {
+              quizId: this.quizId,
+            }
+          }
+      ).then(response => {
+        this.questionResponse = response.data
+        // alert("Sain Kätte")
+        console.log(response.data)
+      }).catch(error => {
+        this.apiError = error.response.data
+        this.message = this.apiError.message
+        this.errorCode = this.apiError.errorCode
+      })
     },
 
-    getNextQuizQuestion: function () {
-      this.submitButton = true
-      this.getQuestion()
-    },
-
-    getQuestion: function () {
+    getUserQuestion: function () {
       this.$http.get("/play", {
             params: {
               quizId: this.quizId,
@@ -106,11 +124,22 @@ export default {
         this.errorCode = this.apiError.errorCode
       })
     },
+
+    getNextQuizQuestion: function () {
+      this.submitButton = true
+      this.getQuestion()
+    },
+
+
+
+
     increaseQuestionCounter: function () {
       if (!this.isPublic){
         this.putIncreaseQuestionCounter();
       }
-      this.getNextFlashCardQuestion();
+      if (this.questionResponse.questionType === 'F'){
+        this.getNextFlashCardQuestion();
+      }
     },
 
     putIncreaseQuestionCounter: function () {
