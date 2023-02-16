@@ -12,7 +12,7 @@
       </div>
 
       <div class="col-5">
-        <PublicQuizzesTable ref="publicQuizzesTable"/>
+        <PublicQuizzesTable ref="publicQuizzesTable" :user-id="userId "@emitPublicQuizzesTable="show5UserQuizzes"/>
       </div>
 
       <div class="row justify-content-center">
@@ -65,6 +65,7 @@ export default {
     showAllUserQuizzes: function () {
       this.$refs.userQuizzesTable.getUserQuizzes()
       this.display5LastPrivateButton = true
+
     },
 
     showAllPublicQuizzes: function () {

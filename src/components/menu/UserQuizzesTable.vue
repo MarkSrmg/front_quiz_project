@@ -37,6 +37,7 @@ export default {
   data: function () {
     return {
       message: '',
+      isPublic: false,
       quizzes: [
         {
           quizId: 0,
@@ -75,7 +76,7 @@ export default {
     },
 
     navigateToPlay: function (quizId) {
-      this.$router.push({name: 'playRoute', query: {quizId: quizId}})
+      this.$router.push({name: 'playRoute', query: {quizId: quizId, isPublic: this.isPublic}})
     },
 
     resetCounter: function (quizId) {
