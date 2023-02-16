@@ -13,7 +13,7 @@
           <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play" class="icon-hover"/>
         </td>
         <td>
-          <font-awesome-icon icon="fa-solid fa-pencil" class="icon-hover"/>
+          <font-awesome-icon v-on:click="navigateToEditPage(quiz.quizId)"  icon="fa-solid fa-pencil" class="icon-hover"/>
         </td>
         <td>
           <font-awesome-icon v-on:click="resetCounter(quiz.quizId)" icon="fa-solid fa-arrows-rotate" class="icon-hover"/>
@@ -77,6 +77,10 @@ export default {
 
     navigateToPlay: function (quizId) {
       this.$router.push({name: 'playRoute', query: {quizId: quizId, isPublic: this.isPublic}})
+    },
+
+    navigateToEditPage: function (quizId) {
+      this.$router.push({name: 'editRoute', query: {quizId: quizId}})
     },
 
     resetCounter: function (quizId) {
