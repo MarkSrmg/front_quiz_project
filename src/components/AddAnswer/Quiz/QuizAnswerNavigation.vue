@@ -1,20 +1,19 @@
 <template>
-  <div>
+  <div class="col-11">
     <div class="col-11">
       <hr class="solid">
     </div>
-    <!--    TODO: tabel mis GETib kõik selle QuestionIdga Answerid + editAnswer siia tõsta, et tabelis muuta-->
     <div>
       <table class="table table-borderless text-white text fw-bold"
              style="background-color: rgba(0, 0, 0, 0);">
         <tbody>
         <tr v-for="answer in answers" :key="answer.answerId">
-          <td>
-            <div v-if="!isEdit">
+          <td style="max-width:150px;">
+            <div>
               {{ answer.answerText }}
             </div>
           </td>
-          <td>
+          <td style="max-width:35px;">
             <div v-if="answer.answerPicture !== null">
               <img :src=answer.answerPicture class="img-thumbnail" alt="...">
             </div>
@@ -27,7 +26,7 @@
           </td>
           <td>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
             </div>
           </td>
         </tr>
@@ -65,18 +64,11 @@ export default {
           answerIsCorrect: false
         }
       ],
-      answerRequest: {
-        answerId: 0,
-        answerText: '',
-        answerPicture: '',
-        answerIsCorrect: false
-      },
-      isEdit: false
     }
   },
   methods: {
-    editAnswer: function () {
-      this.putAnswer()
+    emitEditEvent: function () {
+      this.$emit.answers.answerId;
     },
     nextQuestion: function () {
       window.location.reload();
@@ -101,7 +93,7 @@ export default {
       })
     },
     getAllAnswers: function () {
-      this.$http.get("/questions/answer", {
+      this.$http.get("/questions/answers", {
             params: {
               questionId: this.questionId
             }
@@ -112,18 +104,6 @@ export default {
         console.log(error)
       })
     },
-  },
-  putAnswer: function () {
-    this.$http.put("/questions/answer", this.answerRequest, {
-          params: {
-            answerId: this.answerId
-          }
-        }
-    ).then(response => {
-      console.log(response.data)
-    }).catch(error => {
-      console.log(error)
-    })
   },
   beforeMount() {
     this.getAllAnswers()

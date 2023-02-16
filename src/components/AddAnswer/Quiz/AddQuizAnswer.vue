@@ -1,22 +1,23 @@
 <template>
-  <div class="row justify-content-center">
-    <div>
-      <AddAnswerText ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
-      <div>
-        <image-input @emitBase64Event="setAnswerPicture"/>
+  <div>
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <AddAnswerText ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
+        <div>
+          <image-input @emitBase64Event="setAnswerPicture"/>
+        </div>
+        <div class="mb-3">
+          <button v-if="!isEdit" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
+        </div>
+        <AlertDanger :message="message"/>
+        <div class="mb-3" v-if="isEdit">
+          <button v-on:click="editAnswer" type="button" class="btn btn-dark">Edit answer</button>
+        </div>
       </div>
-      <div class="mb-3">
-        <button v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
-      </div>
-      <AlertDanger :message="message"/>
-<!--      <div class="mb-3" v-if="isShown">-->
-<!--        <button v-on:click="editAnswer" type="button" class="btn btn-dark">Edit answer</button>-->
-<!--      </div>-->
     </div>
-    <div v-if="isShown">
+    <div class="row justify-content-center" v-if="isShown">
       <QuizAnswerNavigation ref="quizAnswerNavigation" :question-id="questionId"/>
     </div>
-
   </div>
 </template>
 <script>
@@ -41,12 +42,16 @@ export default {
         answerIsCorrect: false
       },
       isShown: false,
-      message: ''
+      message: '',
+      isEdit: false
     }
   },
   methods: {
     setAnswerPicture: function (pictureDataBase64) {
       this.answerRequest.answerPicture = pictureDataBase64
+    },
+    editAnswer: function () {
+      this.putAnswer()
     },
     addAnswer: function () {
       this.$refs.addAnswerText.emitAddAnswerText();
@@ -69,6 +74,31 @@ export default {
         this.answerId = response.data.answerId
         this.isShown = true;
         this.$refs.quizAnswerNavigation.getAllAnswers();
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    putAnswer: function () {
+      this.$http.put("/questions/answer", this.answerRequest, {
+            params: {
+              answerId: this.answerId
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    getAnswer: function () {
+      this.$http.get("/some/path", {
+            params: {
+              someRequestParam1: this.someDataBlockVariable1,
+              someRequestParam2: this.someDataBlockVariable2
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
