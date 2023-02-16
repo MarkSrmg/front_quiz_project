@@ -1,7 +1,10 @@
 <template>
   <div v-if="message != ''" class="col-3">
-    <div>
+    <div v-if="errorCode == '404'">
       <AlertSuccess :message="message"/>
+    </div>
+    <div v-if="errorCode == '400'">
+      <AlertDanger :message="message"/>
     </div>
     <div>
       <button v-on:click="menu" type="button" class="btn btn-dark">Back</button>
@@ -11,13 +14,15 @@
 </template>
 <script>
 import AlertSuccess from "@/components/alert/AlertSuccess.vue"
+import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
   name: 'PlayError',
-  components: {AlertSuccess},
+  components: {AlertDanger, AlertSuccess},
   props: {
     menu: {},
-    message: {}
+    message: {},
+    errorCode: {}
   }
 }
 </script>

@@ -8,8 +8,9 @@
       <td>
         <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play" class="icon-hover"/>
       </td>
-      <td>
-        <font-awesome-icon v-on:click="copyPublicQuizToUser(quiz.quizId)" icon="fa-solid fa-plus" class="icon-hover"/>
+      <td v-if="userLoggedIn">
+        <font-awesome-icon  v-on:click="copyPublicQuizToUser(quiz.quizId)" icon="fa-solid fa-plus"
+                           class="icon-hover"/>
       </td>
     </tr>
     </tbody>
@@ -24,6 +25,8 @@ export default {
   data: function () {
     return {
       isPublic: true,
+      userLoggedIn: false,
+
       quizzes: [
         {
           quizId: 0,
@@ -70,10 +73,15 @@ export default {
 
     navigateToPlay: function (quizId) {
       this.$router.push({name: 'playRoute', query: {quizId: quizId, isPublic: this.isPublic}})
-    }
+    },
+    checkIfUserLoggedIn: function () {
+      this.userLoggedIn = this.userId != null
+    },
   },
   beforeMount() {
-    this.getPublicLast5Quizzes()
+    this.getPublicLast5Quizzes();
+    this.checkIfUserLoggedIn();
+
   }
 
 
