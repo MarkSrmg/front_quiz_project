@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row justify-content-center">
-      <PlayError :menu="menu" :message="message" :error-code="errorCode"/>
+      <PlayError :menu="backButton" :message="message" :error-code="errorCode"/>
       <div v-if="message == ''" class="row justify-content-center">
         <div class="col-3 my-3 ">
           <PlayQuestion :question-response="questionResponse"/>
@@ -33,6 +33,7 @@ export default {
     return {
       quizId: Number(this.$route.query.quizId),
       isPublic: Boolean(this.$route.query.isPublic),
+      userId: sessionStorage.getItem('userId'),
       message: '',
       errorCode: '',
       submitButton: true,
@@ -59,8 +60,12 @@ export default {
     }
   },
   methods: {
-    menu: function () {
-      this.$router.push({name: 'menuRoute'})
+    backButton: function () {
+      if(this.userId != null){
+        this.$router.push({name: 'menuRoute'})
+      } else{
+        this.$router.push({name: 'loginRoute'})
+      }
     },
     getNextFlashCardQuestion: function () {
       this.$refs.playFlashcardAnswer.setShowFCAnswer();
