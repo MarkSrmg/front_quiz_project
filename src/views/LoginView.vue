@@ -17,13 +17,17 @@
 
       <br>
       <div class="mb-3">
-        <button v-on:click="login" type="submit" class="btn btn-primary">Sign in</button>
+        <button v-on:click="login" type="submit" class="btn btn-outline-secondary text-white">Sign in</button>
       </div>
       <br>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">New around here? Sign up</a>
-      <br>
-      <a class="dropdown-item" href="#">Forgot password?</a>
+
+
+      <div>
+        <div class="col-12">
+          <PublicQuizzesTable />
+        </div>
+      </div>
     </div>
   </div>
 
@@ -32,10 +36,11 @@
 
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import PublicQuizzesTable from "@/components/menu/PublicQuizzesTable.vue";
 
 export default {
   name: "LoginView",
-  components: {AlertDanger},
+  components: {AlertDanger, PublicQuizzesTable},
   data: function () {
     return {
       message: '',
@@ -56,6 +61,7 @@ export default {
   },
 
   methods: {
+
     login: function () {
       this.message = '';
       if (this.username === '' || this.password === '') {
@@ -83,7 +89,8 @@ export default {
         this.message = this.apiError.message
       })
     },
-  }
+  },
+
 }
 </script>
 
