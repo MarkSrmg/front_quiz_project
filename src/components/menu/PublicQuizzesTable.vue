@@ -9,7 +9,7 @@
         <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play" class="icon-hover"/>
       </td>
       <td>
-        <font-awesome-icon icon="fa-solid fa-plus" class="icon-hover"/>
+        <font-awesome-icon v-on:click="copyPublicQuizToUser(quiz.quizId)" icon="fa-solid fa-plus" class="icon-hover"/>
       </td>
     </tr>
     </tbody>
@@ -18,8 +18,12 @@
 <script>
 export default {
   name: 'PublicQuizzesTable',
+  props: {
+    userId: {}
+  },
   data: function () {
     return {
+      isPublic: true,
       quizzes: [
         {
           quizId: 0,
@@ -49,10 +53,23 @@ export default {
             console.log(error)
           })
     },
-
+    copyPublicQuizToUser: function (quizId) {
+      this.$http.post("/quiz/public-to-user", null, {
+            params: {
+              userId: this.userId,
+              quizId: quizId
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
+        this.$emit('emitPublicQuizzesTable')
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
     navigateToPlay: function (quizId) {
-      this.$router.push({name: 'playRoute', query: {quizId: quizId}})
+      this.$router.push({name: 'playRoute', query: {quizId: quizId, isPublic: this.isPublic}})
     }
   },
   beforeMount() {
