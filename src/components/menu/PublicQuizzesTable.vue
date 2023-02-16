@@ -6,10 +6,10 @@
       <td>{{ quiz.quizType }}</td>
       <td>{{ quiz.quizName }}</td>
       <td>
-        <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play"/>
+        <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play" class="icon-hover"/>
       </td>
       <td>
-        <font-awesome-icon icon="fa-solid fa-plus"/>
+        <font-awesome-icon icon="fa-solid fa-plus" class="icon-hover"/>
       </td>
     </tr>
     </tbody>

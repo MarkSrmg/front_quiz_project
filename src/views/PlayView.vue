@@ -7,27 +7,13 @@
           <PlayQuestion :question-response="questionResponse"/>
         </div>
         <div v-if="questionResponse.questionType === 'F'">
-          <PlayFlashcardAnswer :get-next-question="getNextQuestion" :increase-question-counter="increaseQuestionCounter"
+          <PlayFlashcardAnswer :get-next-question="getNextFlashCardQuestion"
+                               :increase-question-counter="increaseQuestionCounter"
                                :question-response="questionResponse" ref="playFlashcardAnswer"/>
         </div>
         <div v-if="questionResponse.questionType === 'Q'">
-          <div v-for=" answer in questionResponse.answers" class="row  justify-content-center">
-            <div v-if="(answer.answerText != null) || (answer.answerPicture != null)" class="row justify-content-center">
-              <div v-if="answer.answerPicture  !== null" class=" col col-3  col-md-3 px-5 my-2">
-                <img :src=answer.answerPicture class="img-thumbnail" alt="..." style="width: 200px">
-              </div>
-              <div v-if="answer.answerText !=null"
-                   class="col col-3 p-3 mb-2 px-5 bg-secondary text-white bg-opacity-25 align-self-center my-2">
-                {{ answer.answerText }}
-              </div>
-              <div class="col form-check col-1 align-self-center  col-md-3 px-5">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              </div>
-            </div>
-          </div>
-          <div>++++
-            <button type="button" class="btn btn-dark">Submit answer</button>
-          </div>
+          <PlayQuizAnswer :get-next-quiz-question="getNextQuizQuestion" :question-response="questionResponse"
+                        :submit-answer="submitAnswer" :submit-button="submitButton"/>
         </div>
       </div>
     </div>
@@ -36,16 +22,18 @@
 
 <script>
 import PlayError from "@/components/play/PlayError.vue";
-import PlayQuestion from "@/components/AddQuestion/PlayQuestion.vue";
+import PlayQuestion from "@/components/play/PlayQuestion.vue";
 import PlayFlashcardAnswer from "@/components/play/PlayFlashcardAnswer.vue";
+import PlayQuizAnswer from "@/components/play/PlayQuizAnswer.vue";
 
 export default {
   name: "PlayView",
-  components: {PlayFlashcardAnswer, PlayQuestion, PlayError},
+  components: {PlayQuizAnswer, PlayFlashcardAnswer, PlayQuestion, PlayError},
   data: function () {
     return {
       quizId: Number(this.$route.query.quizId),
       message: '',
+      submitButton: true,
       apiError: {
         errorCode: '',
         message: ''
@@ -60,20 +48,43 @@ export default {
             answerId: 0,
             answerText: '',
             answerPicture: '',
-            isSelected: false
-
+            isSelected: false,
+            isCorrect: false,
+            isAnswered: 'unanswered'
           }
         ]
       }
     }
   },
   methods: {
+    submitAnswer: function () {
+      let submit = true;
+      for (let i = 0; i < this.questionResponse.answers.length; i++) {
+        if (this.questionResponse.answers[i].isCorrect != this.questionResponse.answers[i].isSelected) {
+          submit = false;
+          this.questionResponse.answers[i].isAnswered = "false";
+        } else if (this.questionResponse.answers[i].isCorrect == true) {
+          this.questionResponse.answers[i].isAnswered = "correct";
+        }
+      }
+      if (submit) {
+        this.putIncreaseQuestionCounter()
+      }
+      this.submitButton = false;
+
+    },
+
     menu: function () {
       this.$router.push({name: 'menuRoute'})
     },
 
-    getNextQuestion: function () {
+    getNextFlashCardQuestion: function () {
       this.$refs.playFlashcardAnswer.setShowFCAnswer();
+      this.getQuestion()
+    },
+
+    getNextQuizQuestion: function () {
+      this.submitButton = true
       this.getQuestion()
     },
 
@@ -94,7 +105,7 @@ export default {
     },
     increaseQuestionCounter: function () {
       this.putIncreaseQuestionCounter();
-      this.getNextQuestion();
+      this.getNextFlashCardQuestion();
     },
 
     putIncreaseQuestionCounter: function () {
