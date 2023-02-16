@@ -13,7 +13,7 @@
         <div v-if="questionResponse.questionType === 'Q'">
           <div v-for=" answer in questionResponse.answers" class="row  justify-content-center">
             <div v-if="(answer.answerText != null) || (answer.answerPicture != null)" class="row justify-content-center">
-              <div v-if="answer.answerPicture  != null" class=" col col-3  col-md-3 px-5 my-2">
+              <div v-if="answer.answerPicture  !== null" class=" col col-3  col-md-3 px-5 my-2">
                 <img :src=answer.answerPicture class="img-thumbnail" alt="..." style="width: 200px">
               </div>
               <div v-if="answer.answerText !=null"

@@ -6,14 +6,14 @@
         <image-input @emitBase64Event="setAnswerPicture"/>
       </div>
       <div class="mb-3">
-        <button v-if="!isShown" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
+        <button v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
       </div>
-      <div class="mb-3" v-if="isShown">
-        <button v-on:click="editAnswer" type="button" class="btn btn-dark">Edit answer</button>
-      </div>
+<!--      <div class="mb-3" v-if="isShown">-->
+<!--        <button v-on:click="editAnswer" type="button" class="btn btn-dark">Edit answer</button>-->
+<!--      </div>-->
     </div>
     <div v-if="isShown">
-      <QuizAnswerNavigation :question-id="questionId"/>
+      <QuizAnswerNavigation ref="quizAnswerNavigation" :question-id="questionId"/>
     </div>
 
   </div>
@@ -23,7 +23,6 @@
 import AddAnswerText from "@/components/AddAnswer/AddAnswerText.vue";
 import ImageInput from "@/components/ImageInput.vue";
 import QuizAnswerNavigation from "@/components/AddAnswer/Quiz/QuizAnswerNavigation.vue";
-
 
 export default {
   name: 'AddQuizAnswer',
@@ -39,22 +38,17 @@ export default {
         answerPicture: '',
         answerIsCorrect: false
       },
-      isShown: false
+      isShown: false,
     }
   },
   methods: {
     setAnswerPicture: function (pictureDataBase64) {
       this.answerRequest.answerPicture = pictureDataBase64
     },
-    editAnswer: function () {
-      this.$refs.addAnswerText.emitAddAnswerText();
-      this.putAnswer()
-    },
-
     addAnswer: function () {
       this.$refs.addAnswerText.emitAddAnswerText();
-      this.postAnswer()
-      this.isShown = true
+      this.postAnswer();
+
     },
     setAnswerText: function (answerText) {
       this.answerRequest.answerText = answerText
@@ -67,23 +61,12 @@ export default {
           }
       ).then(response => {
         this.answerId = response.data.answerId
+        this.isShown = true;
+        this.$refs.quizAnswerNavigation.getAllAnswers();
       }).catch(error => {
         console.log(error)
       })
     },
-    putAnswer: function () {
-      this.$http.put("/questions/answer", this.answerRequest, {
-            params: {
-              answerId: this.answerId
-            }
-          }
-      ).then(response => {
-        console.log(response.data)
-      }).catch(error => {
-        console.log(error)
-      })
-    },
-
   }
 }
 </script>
