@@ -1,6 +1,6 @@
 <template>
-  <div class="col-11">
-    <div class="col-11">
+  <div class="justify-content-center col-11">
+    <div class="justify-content-center col-12">
       <hr class="solid">
     </div>
     <div>
@@ -13,20 +13,29 @@
               {{ answer.answerText }}
             </div>
           </td>
-          <td style="max-width:35px;">
+          <td style="max-width:30px;">
             <div v-if="answer.answerPicture !== null">
               <img :src=answer.answerPicture class="img-thumbnail" alt="...">
             </div>
           </td>
-          <td>
+          <td title="edit answer" >
             <font-awesome-icon icon="fa-solid fa-pencil" class="icon-hover"/>
           </td>
-          <td>
-            <font-awesome-icon icon="fa-solid fa-trash-can" class="icon-hover"/>
+          <td title="delete answer" >
+            <font-awesome-icon v-on:click="deleteAnswer(answer.answerId)" icon="fa-solid fa-trash-can" class="icon-hover"/>
           </td>
-          <td>
-            <div class="form-check">
+          <td title="if this is checked, the answer is correct" style="max-width:21px;" >
+            <div class="form-check" v-if="!answer.answerIsCorrect">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
+              <label class="form-check-label" for="defaultCheck2">
+                right answer
+              </label>
+            </div>
+            <div class="form-check" v-if="answer.answerIsCorrect">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled checked>
+              <label class="form-check-label" for="defaultCheck2">
+                right answer
+              </label>
             </div>
           </td>
         </tr>
@@ -67,9 +76,6 @@ export default {
     }
   },
   methods: {
-    emitEditEvent: function () {
-      this.$emit.answers.answerId;
-    },
     nextQuestion: function () {
       window.location.reload();
     },
@@ -100,6 +106,20 @@ export default {
           }
       ).then(response => {
         this.answers = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    deleteAnswer: function (answerId) {
+
+      this.$http.delete("/questions/answer", {
+            params: {
+              answerId: answerId
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
+        this.getAllAnswers();
       }).catch(error => {
         console.log(error)
       })

@@ -2,9 +2,16 @@
   <div>
     <div class="row justify-content-center">
       <div class="col-4">
-        <AddAnswerText ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
+        <AddAnswerText :key="textComponentKey" ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
         <div>
-          <image-input @emitBase64Event="setAnswerPicture"/>
+          <div class="form-check">
+            <input class="css-checkbox" type="checkbox" value="" id="flexCheckDefault" v-model="answerRequest.answerIsCorrect">
+            <label class="form-check-label" for="flexCheckDefault"> This answer is correct
+            </label>
+          </div>
+        </div>
+        <div>
+          <image-input :key="imageComponentKey" @emitBase64Event="setAnswerPicture"/>
         </div>
         <div class="mb-3">
           <button v-if="!isEdit" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
@@ -26,6 +33,7 @@ import AddAnswerText from "@/components/AddAnswer/AddAnswerText.vue";
 import ImageInput from "@/components/ImageInput.vue";
 import QuizAnswerNavigation from "@/components/AddAnswer/Quiz/QuizAnswerNavigation.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import imageInput from "@/components/ImageInput.vue";
 
 export default {
   name: 'AddQuizAnswer',
@@ -43,10 +51,18 @@ export default {
       },
       isShown: false,
       message: '',
-      isEdit: false
+      isEdit: false,
+      imageComponentKey: 0,
+      textComponentKey: 0,
     }
   },
   methods: {
+    clearAnswerRequest: function () {
+
+      this.answerRequest.answerIsCorrect = false;
+      this.textComponentKey += 1;
+      this.imageComponentKey += 1;
+    },
     setAnswerPicture: function (pictureDataBase64) {
       this.answerRequest.answerPicture = pictureDataBase64
     },
@@ -71,9 +87,10 @@ export default {
             }
           }
       ).then(response => {
-        this.answerId = response.data.answerId
+        this.answerId = response.data.answerId;
         this.isShown = true;
         this.$refs.quizAnswerNavigation.getAllAnswers();
+        this.clearAnswerRequest()
       }).catch(error => {
         console.log(error)
       })
