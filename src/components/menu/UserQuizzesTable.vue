@@ -5,7 +5,16 @@
              style="background-color: rgba(0, 0, 0, 0.25);">
         <tbody>
         <tr v-for="(quiz, index) in quizzes" :key="quiz.quizId">
-          <td>{{ quiz.quizType }}</td>
+          <td>
+            <div>
+              <div v-if="quiz.quizType === 'Q'">
+                <font-awesome-icon  icon="fa-solid fa-list-check"/>
+              </div>
+              <div v-if="quiz.quizType === 'F'">
+                <font-awesome-icon  icon="fa-solid fa-money-bill-1"/>
+              </div>
+            </div>
+          </td>
           <td>{{ quiz.quizName }}</td>
           <td>
             <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play" class="icon-hover"/>
@@ -84,7 +93,7 @@ export default {
     },
 
     navigateToEditPage: function (quizId) {
-      this.$router.push({name: 'editRoute', query: {quizId: quizId}})
+      this.$router.push({name: 'editRoute', query: {quizId: this.userId}})
     },
 
     resetCounter: function (quizId) {
@@ -99,7 +108,6 @@ export default {
         console.log(error)
       })
     },
-
 
   },
   beforeMount() {
