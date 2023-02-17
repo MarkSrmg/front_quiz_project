@@ -37,7 +37,6 @@ import AddAnswerText from "@/components/AddAnswer/AddAnswerText.vue";
 import ImageInput from "@/components/ImageInput.vue";
 import QuizAnswerNavigation from "@/components/AddAnswer/Quiz/QuizAnswerNavigation.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
-import imageInput from "@/components/ImageInput.vue";
 
 export default {
   name: 'AddQuizAnswer',
@@ -121,19 +120,6 @@ export default {
         console.log(response.data)
         this.isEdit = false
         this.$refs.quizAnswerNavigation.getAllAnswers();
-      }).catch(error => {
-        console.log(error)
-      })
-    },
-    getAnswer: function () {
-      this.$http.get("/some/path", {
-            params: {
-              someRequestParam1: this.someDataBlockVariable1,
-              someRequestParam2: this.someDataBlockVariable2
-            }
-          }
-      ).then(response => {
-        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
