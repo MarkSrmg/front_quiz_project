@@ -71,7 +71,7 @@ export default {
     },
 
     clearAnswerRequest: function () {
-      this.answerRequest.answerPicture = ''
+      this.answerRequest.answerPicture = String
       this.answerRequest.answerIsCorrect = false
       this.answerRequest.answerText = ''
       this.textComponentKey += 1;

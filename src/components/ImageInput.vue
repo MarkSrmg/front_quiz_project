@@ -35,6 +35,14 @@ export default {
       }
       reader.readAsDataURL(fileObject);
     }
+  },
+  beforeMount() {
+    console.log("olen siin 1")
+    if (this.pictureDataBase64 !== String) {
+      console.log("olen siin 2");
+    }
+    console.log("olen siin 3");
+
   }
 }
 </script>
