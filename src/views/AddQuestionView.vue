@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-4">
       <AddQuestionText ref="addQuestionText" @emitAddQuestionText="setQuestionText"/>
-      <ImageInput @emitBase64Event="setQuestionPicture"/>
+      <ImageInput :picture-data-base64-prop="questionRequest.questionPicture" @emitBase64Event="setQuestionPicture"/>
       <div class="mb-3" v-if="!isShown">
         <button v-on:click="addQuestion" type="button" class="btn btn-success">Save question</button>
       </div>
@@ -36,7 +36,7 @@ export default {
       quizType: String(this.$route.query.quizType),
       questionRequest: {
         questionText: '',
-        questionPicture: '',
+        questionPicture: String,
         questionType: String(this.$route.query.quizType)
       },
       isShown: false,

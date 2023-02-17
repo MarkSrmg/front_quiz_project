@@ -77,7 +77,8 @@ export default {
   },
   methods: {
     emitAnswer: function (answer) {
-      this.$emit('emitAnswerEvent', answer)
+      let answerString = JSON.stringify(answer)
+      this.$emit('emitAnswerEvent', JSON.parse(answerString))
     },
 
     nextQuestion: function () {
