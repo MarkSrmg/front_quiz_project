@@ -8,7 +8,7 @@
              style="background-color: rgba(0, 0, 0, 0);">
         <tbody>
         <tr v-for="answer in answers" :key="answer.answerId">
-          <td style="max-width:150px;">
+          <td style="max-width:50px;" class="tdbreak">
             <div>
               {{ answer.answerText }}
             </div>
