@@ -10,14 +10,44 @@ hr.solid {
 
 .table-hover tbody tr:hover,
 .table-hover tbody tr:hover td,
-.table-hover tbody tr:hover th{
+.table-hover tbody tr:hover th {
     background: rgba(63, 0, 35, 0.58) !important;
-    color:#fff !important;
+    color: #fff !important;
 }
+
 .icon-hover:hover {
     color: #ff007e;
     cursor: pointer;
 }
-/*table tr td{*/
-/*    background-color: rgba(255, 255, 255, 0.3) !important;*/
+
+/*.wrapper {*/
+/*    display: flex;*/
+/*    flex-flow: row wrap;*/
+/*    font-weight: bold;*/
+/*    text-align: center;*/
+/*}*/
+/*.header {*/
+/*    background: tomato;*/
+/*}*/
+/*.aside-1 {*/
+/*    background: gold;*/
+/*}*/
+
+/*.aside-2 {*/
+/*    background: hotpink;*/
+/*}*/
+
+/*@media all and (min-width: 600px) {*/
+/*    .aside { flex: 1 0 0; }*/
+/*}*/
+
+/*@media all and (min-width: 800px) {*/
+/*    .main    { flex: 3 0px; }*/
+/*    .aside-1 { order: 1; }*/
+/*    .main    { order: 2; }*/
+/*    .aside-2 { order: 3; }*/
+/*    .footer  { order: 4; }*/
+/*}*/
+/*body {*/
+/*    padding: 2em;*/
 /*}*/
