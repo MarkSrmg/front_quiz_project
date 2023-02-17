@@ -3,11 +3,13 @@
     <div v-for=" answer in questionResponse.answers" class="row  justify-content-center">
       <div v-if="(answer.answerText != null) || (answer.answerPicture != null)"
            class="row justify-content-center">
-        <div v-if="answer.answerPicture  != null" class=" col col-3  col-md-3 px-5 my-2">
+        <div class=" col col-3  col-md-3 px-5 my-2">
+          <div v-if="answer.answerPicture  != null" >
           <img :src=answer.answerPicture class="img-fluid rounded border border-4" alt="..." style="width: 200px"
                :class="{'border-white' : String(answer.isAnswered) === 'unanswered',
                    'border-danger' : String(answer.isAnswered) === 'false',
                    'border-success' : String(answer.isAnswered) === 'correct'}">
+          </div>
         </div>
         <div v-if="answer.answerText !=null"
              :class="{'bg-secondary' : String(answer.isAnswered) === 'unanswered',
@@ -21,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div v-if="submitButton">
+    <div v-if="submitButton" class="my-2">
       <button v-on:click="submitAnswer" type="button" class="btn btn-dark">Submit answer</button>
     </div>
     <div v-if="!submitButton">
