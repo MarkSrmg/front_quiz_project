@@ -8,10 +8,10 @@
           <td>
             <div>
               <div v-if="quiz.quizType === 'Q'">
-                <font-awesome-icon  icon="fa-solid fa-list-check"/>
+                <font-awesome-icon title="Quiz" icon="fa-solid fa-list-check"/>
               </div>
               <div v-if="quiz.quizType === 'F'">
-                <font-awesome-icon  icon="fa-solid fa-money-bill-1"/>
+                <font-awesome-icon title="Flashcard" icon="fa-solid fa-money-bill-1"/>
               </div>
             </div>
           </td>
