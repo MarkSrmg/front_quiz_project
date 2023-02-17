@@ -37,7 +37,6 @@ export default {
   },
   data: function () {
     return {
-      message: '',
       isPublic: false,
       quizzes: [
         {
@@ -51,10 +50,7 @@ export default {
   },
   methods: {
     rotation(index) {
-      console.log("olen Siin")
       this.quizzes[index].deg += 360;
-      // this.quizzes[index].hack += 1;
-      console.log("Teine bla")
     },
 
     getUserLast5Quizzes: function () {
@@ -98,8 +94,6 @@ export default {
             }
           }
       ).then(response => {
-        this.message = 'Uuendatud'
-        setTimeout(() => this.message = '', 2000);
         console.log(response.data)
       }).catch(error => {
         console.log(error)
