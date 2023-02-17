@@ -10,9 +10,12 @@
 <script>
 export default {
   name: 'ImageInput',
+  props: {
+    pictureDataBase64Prop: String
+  },
   data: function () {
     return {
-      pictureDataBase64: String
+      pictureDataBase64: this.pictureDataBase64Prop
     }
   },
   methods: {

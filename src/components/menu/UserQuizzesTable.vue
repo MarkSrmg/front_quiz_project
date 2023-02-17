@@ -11,7 +11,7 @@
             <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play" class="icon-hover"/>
           </td>
           <td>
-            <font-awesome-icon icon="fa-solid fa-pencil" class="icon-hover"/>
+            <font-awesome-icon v-on:click="navigateToEditPage(quiz.quizId)"  icon="fa-solid fa-pencil" class="icon-hover"/>
           </td>
           <td title="Reset question counters">
             <div v-on:click="rotation(index)" class="transition"
@@ -37,6 +37,7 @@ export default {
   },
   data: function () {
     return {
+      message: '',
       isPublic: false,
       quizzes: [
         {
@@ -49,19 +50,6 @@ export default {
     }
   },
   methods: {
-    resetCounter: function (quizId) {
-      this.$http.put("/quiz", null, {
-            params: {
-              quizId: quizId
-            }
-          }
-      ).then(response => {
-        setTimeout(() => this.message = '', 2000);
-        console.log(response.data)
-      }).catch(error => {
-        console.log(error)
-      })
-    },
     rotation(index) {
       console.log("olen Siin")
       this.quizzes[index].deg += 360;
@@ -97,6 +85,25 @@ export default {
 
     navigateToPlay: function (quizId) {
       this.$router.push({name: 'playRoute', query: {quizId: quizId, isPublic: this.isPublic}})
+    },
+
+    navigateToEditPage: function (quizId) {
+      this.$router.push({name: 'editRoute', query: {quizId: quizId}})
+    },
+
+    resetCounter: function (quizId) {
+      this.$http.put("/quiz", null, {
+            params: {
+              quizId: quizId
+            }
+          }
+      ).then(response => {
+        this.message = 'Uuendatud'
+        setTimeout(() => this.message = '', 2000);
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
     },
 
 

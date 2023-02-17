@@ -10,14 +10,11 @@
       <div class="mb-3" v-if="isShown">
         <button v-on:click="editQuestion" type="button" class="btn btn-dark">Edit question</button>
       </div>
-      <div v-if="isShown">
-          <AddNewQuizAnswer v-if="isQuiz" :question-id="questionId"/>
-          <AddFlashcardAnswer v-if="!isQuiz" :question-id="questionId"/>
-
-      </div>
     </div>
-
-
+    <div v-if="isShown">
+      <AddNewQuizAnswer v-if="isQuiz" :question-id="questionId"/>
+      <AddFlashcardAnswer v-if="!isQuiz" :question-id="questionId"/>
+    </div>
   </div>
 
 </template>
