@@ -1,53 +1,73 @@
 <template>
   <div>
-  <div>
-    <AlertSuccess :message="message"/>
-  </div>
-  <div>
-    <table class="table table-borderless table-hover text-white text fw-bold" style="background-color: rgba(0, 0, 0, 0.25);">
-      <tbody>
-      <tr v-for="quiz in quizzes" :key="quiz.quizId">
-        <td>{{ quiz.quizType }}</td>
-        <td>{{ quiz.quizName }}</td>
-        <td>
-          <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play" class="icon-hover"/>
-        </td>
-        <td>
-          <font-awesome-icon icon="fa-solid fa-pencil" class="icon-hover"/>
-        </td>
-        <td>
-          <font-awesome-icon v-on:click="resetCounter(quiz.quizId)" icon="fa-solid fa-arrows-rotate" class="icon-hover"/>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div>
+      <table class="table table-borderless table-hover text-white text fw-bold"
+             style="background-color: rgba(0, 0, 0, 0.25);">
+        <tbody>
+        <tr v-for="(quiz, index) in quizzes" :key="quiz.quizId">
+          <td>{{ quiz.quizType }}</td>
+          <td>{{ quiz.quizName }}</td>
+          <td>
+            <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play" class="icon-hover"/>
+          </td>
+          <td>
+            <font-awesome-icon icon="fa-solid fa-pencil" class="icon-hover"/>
+          </td>
+          <td title="Reset question counters">
+            <div v-on:click="rotation(index)" class="transition"
+                 v-bind:style="{transform: `rotate(${quizzes[index].deg}deg)`  }">
+              <font-awesome-icon v-on:click="resetCounter(quiz.quizId)" icon="fa-solid fa-arrows-rotate"
+                                 class="icon-hover"/>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
 
     </div>
   </div>
 </template>
 <script>
-import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+
 
 export default {
   name: 'UserQuizzesTable',
-  components: {AlertSuccess},
   props: {
     userId: {}
   },
   data: function () {
     return {
-      message: '',
       isPublic: false,
       quizzes: [
         {
           quizId: 0,
           quizName: '',
-          quizType: ''
+          quizType: '',
+          deg: 0
         }
       ]
     }
   },
   methods: {
+    resetCounter: function (quizId) {
+      this.$http.put("/quiz", null, {
+            params: {
+              quizId: quizId
+            }
+          }
+      ).then(response => {
+        setTimeout(() => this.message = '', 2000);
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    rotation(index) {
+      console.log("olen Siin")
+      this.quizzes[index].deg += 360;
+      // this.quizzes[index].hack += 1;
+      console.log("Teine bla")
+    },
 
     getUserLast5Quizzes: function () {
       this.$http.get("/quiz/user/last-5", {
@@ -77,21 +97,6 @@ export default {
 
     navigateToPlay: function (quizId) {
       this.$router.push({name: 'playRoute', query: {quizId: quizId, isPublic: this.isPublic}})
-    },
-
-    resetCounter: function (quizId) {
-      this.$http.put("/quiz", null, {
-            params: {
-              quizId: quizId
-            }
-          }
-      ).then(response => {
-        this.message = 'Uuendatud'
-        setTimeout(() => this.message = '', 2000);
-        console.log(response.data)
-      }).catch(error => {
-        console.log(error)
-      })
     },
 
 
