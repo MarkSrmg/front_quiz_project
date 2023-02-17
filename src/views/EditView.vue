@@ -1,10 +1,7 @@
 <template>
   <div>
 
-  <div class="input-group col">
 
-    <input type="text" class="form-control" placeholder="Quiz name">
-  </div>
 
   <div class="row justify-content-start">
     <div class="col-2">
