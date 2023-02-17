@@ -6,15 +6,22 @@
 <script>
 export default {
   name: 'AddAnswerText',
+  props: {
+    answerTextProp: ''
+  },
   data: function () {
     return {
-      answerText: ''
+      answerText: this.answerTextProp
     }
   },
   methods: {
     emitAddAnswerText: function () {
+      console.log(this.answerText)
       this.$emit('emitAddAnswerText', this.answerText)
     }
-  }
+  },
+  // beforeMount() {
+  //   this.answerText = this.answerTextProp
+  // }
 }
 </script>

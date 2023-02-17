@@ -19,7 +19,7 @@
             </div>
           </td>
           <td title="edit answer" >
-            <font-awesome-icon icon="fa-solid fa-pencil" class="icon-hover"/>
+            <font-awesome-icon v-on:click="emitAnswer(answer)" icon="fa-solid fa-pencil" class="icon-hover"/>
           </td>
           <td title="delete answer" >
             <font-awesome-icon v-on:click="deleteAnswer(answer.answerId)" icon="fa-solid fa-trash-can" class="icon-hover"/>
@@ -76,6 +76,10 @@ export default {
     }
   },
   methods: {
+    emitAnswer: function (answer) {
+      this.$emit('emitAnswerEvent', answer)
+    },
+
     nextQuestion: function () {
       window.location.reload();
     },
@@ -106,9 +110,13 @@ export default {
           }
       ).then(response => {
         this.answers = response.data
+        this.emitClearAnswerRequest()
       }).catch(error => {
         console.log(error)
       })
+    },
+    emitClearAnswerRequest: function () {
+      this.$emit('emitClearAnswerRequestEvent')
     },
     deleteAnswer: function (answerId) {
 

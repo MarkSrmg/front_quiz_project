@@ -2,16 +2,17 @@
   <div>
     <div class="row justify-content-center">
       <div class="col-4">
-        <AddAnswerText :key="textComponentKey" ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
+        <AddAnswerText :answer-text-prop="answerRequest.answerText" :key="textComponentKey" ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
         <div>
           <div class="form-check">
-            <input class="css-checkbox" type="checkbox" value="" id="flexCheckDefault" v-model="answerRequest.answerIsCorrect">
+            <input class="css-checkbox" type="checkbox" value="" id="flexCheckDefault"
+                   v-model="answerRequest.answerIsCorrect">
             <label class="form-check-label" for="flexCheckDefault"> This answer is correct
             </label>
           </div>
         </div>
         <div>
-          <image-input :key="imageComponentKey" @emitBase64Event="setAnswerPicture"/>
+          <ImageInput :picture-data-base64-prop="answerRequest.answerPicture" :key="imageComponentKey" @emitBase64Event="setAnswerPicture"/>
         </div>
         <div class="mb-3">
           <button v-if="!isEdit" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
@@ -23,7 +24,10 @@
       </div>
     </div>
     <div class="row justify-content-center" v-if="isShown">
-      <QuizAnswerNavigation ref="quizAnswerNavigation" :question-id="questionId"/>
+      <QuizAnswerNavigation ref="quizAnswerNavigation"
+                            @emitClearAnswerRequestEvent="clearAnswerRequest"
+                            @emitAnswerEvent="setEditAnswerInputFields"
+                            :question-id="questionId"/>
     </div>
   </div>
 </template>
@@ -45,8 +49,9 @@ export default {
     return {
       answerId: Number(this.$route.query.answerId),
       answerRequest: {
+        answerId: 0,
         answerText: '',
-        answerPicture: '',
+        answerPicture: String,
         answerIsCorrect: false
       },
       isShown: false,
@@ -57,9 +62,18 @@ export default {
     }
   },
   methods: {
-    clearAnswerRequest: function () {
+    setEditAnswerInputFields: function (answer) {
+      this.answerRequest = answer
+      this.isEdit = true
+      this.textComponentKey += 1;
+      this.imageComponentKey += 1;
 
-      this.answerRequest.answerIsCorrect = false;
+    },
+
+    clearAnswerRequest: function () {
+      this.answerRequest.answerPicture = ''
+      this.answerRequest.answerIsCorrect = false
+      this.answerRequest.answerText = ''
       this.textComponentKey += 1;
       this.imageComponentKey += 1;
     },
@@ -67,9 +81,11 @@ export default {
       this.answerRequest.answerPicture = pictureDataBase64
     },
     editAnswer: function () {
+      this.$refs.addAnswerText.emitAddAnswerText();
       this.putAnswer()
     },
     addAnswer: function () {
+      this.message = ''
       this.$refs.addAnswerText.emitAddAnswerText();
       if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === '') {
         this.message = 'Please enter your answer'
@@ -98,11 +114,13 @@ export default {
     putAnswer: function () {
       this.$http.put("/questions/answer", this.answerRequest, {
             params: {
-              answerId: this.answerId
+              answerId: this.answerRequest.answerId
             }
           }
       ).then(response => {
         console.log(response.data)
+        this.isEdit = false
+        this.$refs.quizAnswerNavigation.getAllAnswers();
       }).catch(error => {
         console.log(error)
       })
