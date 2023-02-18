@@ -86,7 +86,7 @@ export default {
     addAnswer: function () {
       this.message = ''
       this.$refs.addAnswerText.emitAddAnswerText();
-      if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === '') {
+      if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === String) {
         this.message = 'Please enter your answer'
       } else {
         this.postAnswer();

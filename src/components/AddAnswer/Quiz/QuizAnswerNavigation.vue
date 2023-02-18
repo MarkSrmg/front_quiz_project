@@ -18,13 +18,14 @@
               <img :src=answer.answerPicture class="img-thumbnail" alt="...">
             </div>
           </td>
-          <td title="edit answer" >
+          <td title="edit answer">
             <font-awesome-icon v-on:click="emitAnswer(answer)" icon="fa-solid fa-pencil" class="icon-hover"/>
           </td>
-          <td title="delete answer" >
-            <font-awesome-icon v-on:click="deleteAnswer(answer.answerId)" icon="fa-solid fa-trash-can" class="icon-hover"/>
+          <td title="delete answer">
+            <font-awesome-icon v-on:click="deleteAnswer(answer.answerId)" icon="fa-solid fa-trash-can"
+                               class="icon-hover"/>
           </td>
-          <td title="if this is checked, the answer is correct" style="max-width:21px;" >
+          <td title="if this is checked, the answer is correct" style="max-width:21px;">
             <div class="form-check" v-if="!answer.answerIsCorrect">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
               <label class="form-check-label" for="defaultCheck2">
@@ -45,6 +46,7 @@
     <!--    <div class="mb-3">-->
     <!--      <button type="button" class="btn btn-dark">Previous question</button>-->
     <!--    </div>-->
+    <AlertDanger :message="message"/>
     <div class="mb-3">
       <button v-on:click="nextQuestion" type="button" class="btn btn-dark">Next question</button>
     </div>
@@ -57,8 +59,11 @@
   </div>
 </template>
 <script>
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+
 export default {
   name: 'QuizAnswerNavigation',
+  components: {AlertDanger},
   props: {
     questionId: {}
   },
@@ -73,6 +78,7 @@ export default {
           answerIsCorrect: false
         }
       ],
+      message: ''
     }
   },
   methods: {
@@ -80,12 +86,33 @@ export default {
       let answerString = JSON.stringify(answer)
       this.$emit('emitAnswerEvent', JSON.parse(answerString))
     },
-
     nextQuestion: function () {
-      window.location.reload();
+      let hasCorrectAnswer = false;
+      for (let i = 0; i < this.answers.length; i++) {
+        if (this.answers[i].answerIsCorrect === true) {
+          hasCorrectAnswer = true;
+          break;
+        }
+      }
+      if (!hasCorrectAnswer) {
+        this.message = 'At least one answer needs to be set as correct!';
+      } else {
+        window.location.reload();
+      }
     },
     finishQuiz: function () {
-      this.$router.push({name: 'menuRoute'})
+      let hasCorrectAnswer = false;
+      for (let i = 0; i < this.answers.length; i++) {
+        if (this.answers[i].answerIsCorrect === true) {
+          hasCorrectAnswer = true;
+          break;
+        }
+      }
+      if (!hasCorrectAnswer) {
+        this.message = 'At least one answer needs to be set as correct!';
+      } else {
+        this.$router.push({name: 'menuRoute'});
+      }
     },
     removeQuiz: function () {
       this.deleteQuiz();
@@ -111,6 +138,7 @@ export default {
           }
       ).then(response => {
         this.answers = response.data
+        this.message = ''
         this.emitClearAnswerRequest()
       }).catch(error => {
         console.log(error)
