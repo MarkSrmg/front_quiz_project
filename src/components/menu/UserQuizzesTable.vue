@@ -93,7 +93,7 @@ export default {
     },
 
     navigateToEditPage: function (quizId) {
-      this.$router.push({name: 'editRoute', query: {quizId: this.userId}})
+      this.$router.push({name: 'editRoute', query: {quizId: quizId}})
     },
 
     resetCounter: function (quizId) {
