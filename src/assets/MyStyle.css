@@ -25,6 +25,10 @@ hr.solid {
 .tdbreak {
     word-break: break-all
 }
-/*table tr td{*/
-/*    background-color: rgba(255, 255, 255, 0.3) !important;*/
-/*}*/
+
+.centered {
+    margin: auto;
+    width: 60%;
+    height: 150%;
+    padding: 150px;
+}
