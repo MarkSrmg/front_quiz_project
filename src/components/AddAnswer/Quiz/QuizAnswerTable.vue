@@ -62,7 +62,7 @@
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
-  name: 'QuizAnswerNavigation',
+  name: 'QuizAnswerTable',
   components: {AlertDanger},
   props: {
     questionId: {}

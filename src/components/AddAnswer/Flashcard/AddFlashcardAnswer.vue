@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-content-center">
-    <div>
+    <div class="col-4">
       <AddAnswerText ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
       <div class="mb-3">
         <button v-if="!isShown" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>

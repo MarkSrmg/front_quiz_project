@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="row justify-content-center" v-if="isShown">
-      <QuizAnswerNavigation ref="quizAnswerNavigation"
+      <QuizAnswerTable ref="quizAnswerNavigation"
                             @emitClearAnswerRequestEvent="clearAnswerRequest"
                             @emitAnswerEvent="setEditAnswerInputFields"
                             :question-id="questionId"/>
@@ -35,12 +35,12 @@
 
 import AddAnswerText from "@/components/AddAnswer/AddAnswerText.vue";
 import ImageInput from "@/components/ImageInput.vue";
-import QuizAnswerNavigation from "@/components/AddAnswer/Quiz/QuizAnswerNavigation.vue";
+import QuizAnswerTable from "@/components/AddAnswer/Quiz/QuizAnswerTable.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
   name: 'AddQuizAnswer',
-  components: {AlertDanger, QuizAnswerNavigation, ImageInput, AddAnswerText},
+  components: {AlertDanger, QuizAnswerTable, ImageInput, AddAnswerText},
   props: {
     questionId: {}
   },
@@ -68,7 +68,6 @@ export default {
       this.imageComponentKey += 1;
 
     },
-
     clearAnswerRequest: function () {
       this.answerRequest.answerPicture = String
       this.answerRequest.answerIsCorrect = false
