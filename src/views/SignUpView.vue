@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center centered">
 
     <div class="col col-5">
       <AlertDanger :message="message" />
@@ -60,17 +60,23 @@ export default {
   },
   methods:{
     postUser: function () {
-      this.$http.post("/signup", this.user
-      ).then(response => {
-        this.loginResponse = response.data
-        sessionStorage.setItem('userId', this.loginResponse.userId)
-        sessionStorage.setItem('roleName', this.loginResponse.roleName)
-        this.$router.push({name: 'menuRoute'})
-      }).catch(error => {
-        this.apiError = error.response.data
-        this.message = this.apiError.message
-        console.log(error)
-      })
+      this.message = '';
+      if (this.user.userName =='' || this.user.password =='' || this.user.userRole =='' || this.user.userEmail == '' ){
+        this.message = 'All fields are required'
+      }else{
+        this.$http.post("/signup", this.user
+        ).then(response => {
+          this.loginResponse = response.data
+          sessionStorage.setItem('userId', this.loginResponse.userId)
+          sessionStorage.setItem('roleName', this.loginResponse.roleName)
+          this.$router.push({name: 'menuRoute'})
+        }).catch(error => {
+          this.apiError = error.response.data
+          this.message = this.apiError.message
+          console.log(error)
+        })
+      }
+
     },
 
   }

@@ -17,7 +17,8 @@
 
         <br>
         <div class="mb-3">
-          <button v-on:click="login" type="submit" class="btn btn-outline-secondary text-white">Log in</button>
+          <button v-on:click="login" type="submit" class="btn btn-outline-secondary text-white m-md-2">Log in</button>
+          <button v-on:click="signup" type="submit" class="btn btn-outline-secondary text-white m-md-2">Register</button>
         </div>
       </div>
 
@@ -60,6 +61,9 @@ export default {
   },
 
   methods: {
+    signup:function (){
+      this.$router.push({name: 'signupRoute'})
+    },
 
     login: function () {
       this.message = '';
@@ -81,7 +85,12 @@ export default {
 
         sessionStorage.setItem('userId', this.loginResponse.userId)
         sessionStorage.setItem('roleName', this.loginResponse.roleName)
-        this.$router.push({name: 'menuRoute'})
+        if (this.loginResponse.roleName === 'admin'){
+          this.$router.push({name: 'adminRoute'})
+
+        }else{
+          this.$router.push({name: 'menuRoute'})
+        }
         window.location.reload();
       }).catch(error => {
         this.apiError = error.response.data
