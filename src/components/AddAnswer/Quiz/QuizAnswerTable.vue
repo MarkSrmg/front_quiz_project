@@ -22,8 +22,7 @@
             <font-awesome-icon v-on:click="emitAnswer(answer)" icon="fa-solid fa-pencil" class="icon-hover"/>
           </td>
           <td title="delete answer">
-            <font-awesome-icon v-on:click="deleteAnswer(answer.answerId)" icon="fa-solid fa-trash-can"
-                               class="icon-hover"/>
+            <font-awesome-icon v-on:click="deleteAnswer(answer.answerId)" icon="fa-solid fa-trash-can" class="icon-hover"/>
           </td>
           <td title="if this is checked, the answer is correct" style="max-width:21px;">
             <div class="form-check" v-if="!answer.answerIsCorrect">

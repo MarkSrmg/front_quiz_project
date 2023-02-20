@@ -43,7 +43,7 @@ const routes = [
     component: EditView
   },
   {
-    path: '/login',
+    path: '/',
     name: 'loginRoute',
     component: LoginView
   },
