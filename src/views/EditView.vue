@@ -3,7 +3,7 @@
 
 
 
-  <div class="row justify-content-start">
+  <div class="row justify-content-start" >
     <div class="col-2">
       <table class="table table-borderless table-hover text-white fw-bold"
              style="background-color: rgba(0, 0, 0, 0.25)">

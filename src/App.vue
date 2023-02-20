@@ -1,10 +1,33 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link v-if="userLoggedIn" to="/menu">Menu</router-link> |
-      <router-link v-if="userLoggedIn" to="/logout">Log out</router-link>
-      <router-link v-if="!userLoggedIn" to="/login">Login</router-link> |
+    <nav class="navbar navbar-expand-lg bg-transparent">
+      <div class="container-fluid">
+
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+<!--              <router-link class="navbar-brand" v-if="userLoggedIn" to="/menu">Menu</router-link>-->
+<!--   Siin saab oll MINGI LINK           -->
+            </li>
+          </ul>
+          <form class="d-flex" >
+            <router-link class="navbar-brand" v-if="userLoggedIn"  to="/menu"><font-awesome-icon icon="fa-solid fa-house" /></router-link>
+            <router-link class="form-control me-2" v-if="userLoggedIn" to="/logout">Log out</router-link>
+<!--            <router-link   v-if="!userLoggedIn" to="/login">Login</router-link>-->
+
+          </form>
+        </div>
+      </div>
     </nav>
+<!--    <nav>-->
+<!--      <router-link v-if="userLoggedIn" to="/menu">Menu</router-link> |-->
+<!--      <router-link v-if="userLoggedIn" to="/logout">Log out</router-link>-->
+<!--      <router-link   v-if="!userLoggedIn" to="/login">Login</router-link> |-->
+<!--    </nav>-->
     <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
   </div>
 </template>
@@ -55,6 +78,6 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #ffffff;
 }
 </style>
