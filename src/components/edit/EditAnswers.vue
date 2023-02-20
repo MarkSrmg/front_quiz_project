@@ -67,6 +67,9 @@ export default {
     }
   },
   methods: {
+    getAllAnswers: function (questionId) {
+      this.$refs.quizAnswerTable.getAllAnswers(questionId)
+    },
     setEditAnswerInputFields: function (answer) {
       this.answerRequest = answer
       this.isEdit = true
@@ -100,10 +103,10 @@ export default {
     setAnswerText: function (answerText) {
       this.answerRequest.answerText = answerText
     },
-    postAnswer: function () {
+    postAnswer: function (questionId) {
       this.$http.post("/questions/answer", this.answerRequest, {
             params: {
-              questionId: this.questionId
+              questionId: questionId
             }
           }
       ).then(response => {

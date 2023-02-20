@@ -11,7 +11,7 @@
         </div>
       </div>
       <div>
-        <EditAnswers/>
+        <EditAnswers ref="editAnswers" />
       </div>
     </div>
   </div>
@@ -42,9 +42,11 @@ export default {
   },
 
   methods: {
-    editQuestion: function () {
-      this.$refs.addQuestionText.emitAddQuestionText();
-      this.putQuestion()
+    getAllAnswers: function (questionId) {
+      this.$refs.editAnswers.getAllAnswers(questionId)
+    },
+    editQuestion: function (questionId) {
+      this.putQuestion(questionId)
     },
     setQuestionText: function (questionText) {
       this.questionRequest.questionText = questionText
@@ -64,10 +66,10 @@ export default {
         console.log(error)
       })
     },
-    putQuestion: function () {
+    putQuestion: function (questionId) {
       this.$http.put("/questions", this.questionRequest, {
             params: {
-              questionId: this.questionId,
+              questionId: questionId,
             }
           }
       ).then(response => {

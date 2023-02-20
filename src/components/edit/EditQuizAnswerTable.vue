@@ -115,10 +115,10 @@ export default {
         console.log(error)
       })
     },
-    getAllAnswers: function () {
+    getAllAnswers: function (questionId) {
       this.$http.get("/questions/answers", {
             params: {
-              questionId: this.questionId
+              questionId: questionId
             }
           }
       ).then(response => {
@@ -147,8 +147,5 @@ export default {
       })
     },
   },
-  beforeMount() {
-    this.getAllAnswers()
-  }
 }
 </script>
