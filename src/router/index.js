@@ -7,6 +7,8 @@ import PlayView from "@/views/PlayView.vue";
 import AddQuestionView from "@/views/AddQuestionView.vue";
 import LogoutView from "@/views/LogoutView.vue";
 import EditView from "@/views/EditView.vue";
+import AdminView from "@/views/AdminView.vue";
+import SignUpView from "@/views/SignUpView.vue";
 
 Vue.use(VueRouter)
 
@@ -41,9 +43,19 @@ const routes = [
     component: EditView
   },
   {
-    path: '/login',
+    path: '/',
     name: 'loginRoute',
     component: LoginView
+  },
+  {
+    path: '/admin',
+    name: 'adminRoute',
+    component: AdminView
+  },
+{
+    path: '/signup',
+    name: 'signupRoute',
+    component: SignUpView
   }
 
 ]

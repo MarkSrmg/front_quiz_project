@@ -1,31 +1,31 @@
 <template>
 
-  <div class="row justify-content-center">
 
-    <div class="col-4">
+<div class="centered">
+    <div class="row justify-content-center">
 
       <AlertDanger :message="message"/>
+      <div class="col-4 ">
+        <div class="form-floating">
+          <input v-model="username" type="email" class="form-control" id="floatingInput" >
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating my-2">
+          <input v-model="password" type="password" class="form-control" id="floatingPassword">
+          <label for="floatingPassword">Password</label>
+        </div>
 
-      <div class="form-floating mb-5">
-        <input v-model="username" type="email" class="form-control" id="floatingInput" placeholder="Email address">
-        <label for="floatingInput">Username</label>
+        <br>
+        <div class="mb-3">
+          <button v-on:click="login" type="submit" class="btn btn-outline-secondary text-white m-md-2">Log in</button>
+          <button v-on:click="signup" type="submit" class="btn btn-outline-secondary text-white m-md-2">Register</button>
+        </div>
       </div>
-      <div class="form-floating">
-        <input v-model="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-      </div>
-
-      <br>
-      <div class="mb-3">
-        <button v-on:click="login" type="submit" class="btn btn-outline-secondary text-white">Sign in</button>
-      </div>
-      <br>
-      <div class="dropdown-divider"></div>
 
 
-      <div>
-        <div class="col-12">
-          <PublicQuizzesTable />
+      <div class="col-8 ">
+        <div>
+          <PublicQuizzesTable/>
         </div>
       </div>
     </div>
@@ -61,6 +61,9 @@ export default {
   },
 
   methods: {
+    signup:function (){
+      this.$router.push({name: 'signupRoute'})
+    },
 
     login: function () {
       this.message = '';
@@ -82,7 +85,12 @@ export default {
 
         sessionStorage.setItem('userId', this.loginResponse.userId)
         sessionStorage.setItem('roleName', this.loginResponse.roleName)
-        this.$router.push({name: 'menuRoute'})
+        if (this.loginResponse.roleName === 'admin'){
+          this.$router.push({name: 'adminRoute'})
+
+        }else{
+          this.$router.push({name: 'menuRoute'})
+        }
         window.location.reload();
       }).catch(error => {
         this.apiError = error.response.data
