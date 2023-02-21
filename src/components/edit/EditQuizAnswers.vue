@@ -19,11 +19,11 @@
               <font-awesome-icon v-on:click="removePicture" class="icon-hover cancel" type="button" icon="fa-solid fa-ban" />
             </div>
           </div>
-          <div class="mb-3">
+          <div class="mb-3 my-3">
             <button v-if="!isEdit" v-on:click="addAnswer(questionId)" type="button" class="btn btn-success">Save answer</button>
           </div>
           <AlertDanger :message="message"/>
-          <div class="mb-3" v-if="isEdit">
+          <div class="mb-3 my-3" v-if="isEdit">
             <button v-on:click="editAnswer(questionId)" type="button" class="btn btn-dark">Edit answer</button>
           </div>
         </div>
