@@ -1,34 +1,31 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg bg-transparent">
+<!--    <div>-->
+<!--      <nav class="position-fixed end-0">-->
+<!--        <router-link v-if="userLoggedIn" to="/menu"><font-awesome-icon icon="fa-solid fa-house" class="icon-hover"/></router-link> |-->
+<!--        <router-link v-if="userLoggedIn" to="/logout">Log out</router-link>-->
+<!--        <router-link   v-if="!userLoggedIn" to="/login">Login</router-link> |-->
+<!--      </nav>-->
+<!--    </div>-->
+
+    <nav class="navbar navbar-expand-sm bg-transparent">
       <div class="container-fluid">
-
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-<!--              <router-link class="navbar-brand" v-if="userLoggedIn" to="/menu">Menu</router-link>-->
-<!--   Siin saab oll MINGI LINK           -->
-            </li>
-          </ul>
-          <form class="d-flex" >
-            <router-link class="navbar-brand" v-if="userLoggedIn"  to="/menu"><font-awesome-icon icon="fa-solid fa-house" /></router-link>
-            <router-link class="form-control me-2" v-if="userLoggedIn" to="/logout">Log out</router-link>
-<!--            <router-link   v-if="!userLoggedIn" to="/login">Login</router-link>-->
-
-          </form>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto">
+            <router-link v-if="userLoggedIn" to="/menu"><font-awesome-icon icon="fa-solid fa-house" class="icon-hover mx-3"/></router-link>
+            <router-link v-if="userLoggedIn" to="/logout" class="icon-hover mx-3">Log out</router-link>
+          </div>
         </div>
       </div>
     </nav>
-<!--    <nav>-->
-<!--      <router-link v-if="userLoggedIn" to="/menu">Menu</router-link> |-->
-<!--      <router-link v-if="userLoggedIn" to="/logout">Log out</router-link>-->
-<!--      <router-link   v-if="!userLoggedIn" to="/login">Login</router-link> |-->
-<!--    </nav>-->
+
+
+
     <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
+
   </div>
 </template>
 <script>
@@ -57,7 +54,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #a1a1a1;
+  color: #7c7c7c;
 }
 
 body {
@@ -75,6 +72,14 @@ nav {
 nav a {
   font-weight: bold;
   color: #ffffff;
+  text-decoration: none;
+}
+
+nav a:hover {
+  font-weight: bold;
+  color: #ccc;
+  text-decoration: none;
+scale: 1.5;
 }
 
 nav a.router-link-exact-active {
