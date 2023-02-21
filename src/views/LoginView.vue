@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
 
       <AlertDanger :message="message"/>
-      <div class="col-5 ">
+      <div class="col-4 ">
         <div class="form-floating">
           <input v-model="username" type="email" class="form-control" id="floatingInput" >
           <label for="floatingInput">Username</label>
@@ -23,7 +23,7 @@
       </div>
 
 
-      <div class="col-5 ">
+      <div class="col-8 ">
         <div>
           <PublicQuizzesTable/>
         </div>
