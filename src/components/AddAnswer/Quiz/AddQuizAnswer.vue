@@ -13,6 +13,9 @@
         </div>
         <div>
           <ImageInput :picture-data-base64-prop="answerRequest.answerPicture" :key="imageComponentKey" @emitBase64Event="setAnswerPicture"/>
+          <div v-if="answerRequest.answerPicture != String && answerRequest.answerPicture != null" class="mt-1" title="remove picture">
+            <font-awesome-icon v-on:click="removePicture" class="icon-hover cancel" type="button" icon="fa-solid fa-ban" />
+          </div>
         </div>
         <div class="mb-3">
           <button v-if="!isEdit" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
@@ -61,12 +64,15 @@ export default {
     }
   },
   methods: {
+    removePicture: function () {
+      this.answerRequest.answerPicture = String
+      this.imageComponentKey += 1
+    },
     setEditAnswerInputFields: function (answer) {
       this.answerRequest = answer
       this.isEdit = true
       this.textComponentKey += 1;
       this.imageComponentKey += 1;
-
     },
     clearAnswerRequest: function () {
       this.answerRequest.answerPicture = String
@@ -79,8 +85,13 @@ export default {
       this.answerRequest.answerPicture = pictureDataBase64
     },
     editAnswer: function () {
+      this.message = ''
       this.$refs.addAnswerText.emitAddAnswerText();
-      this.putAnswer()
+      if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === String) {
+        this.message = 'Please enter your answer'
+      } else {
+        this.putAnswer()
+      }
     },
     addAnswer: function () {
       this.message = ''

@@ -117,4 +117,9 @@ export default {
   }
 }
 </script>
+<style>
+.cancel {
+  height: 35px;
+}
+</style>
 

@@ -5,7 +5,10 @@
     </div>
     <div class="col-4">
       <AddQuestionText ref="addQuestionText" @emitAddQuestionText="setQuestionText"/>
-      <ImageInput :picture-data-base64-prop="questionRequest.questionPicture" @emitBase64Event="setQuestionPicture"/>
+      <ImageInput :picture-data-base64-prop="questionRequest.questionPicture" :key="imageComponentKey" @emitBase64Event="setQuestionPicture"/>
+      <div v-if="questionRequest.questionPicture != String" class="mt-1" title="remove picture">
+        <font-awesome-icon v-on:click="removePicture" class="icon-hover cancel" type="button" icon="fa-solid fa-ban" />
+      </div>
       <div class="mb-3" v-if="!isShown">
         <button v-on:click="addQuestion" type="button" class="btn btn-success">Save question</button>
       </div>
@@ -45,11 +48,16 @@ export default {
       },
       isShown: false,
       isQuiz: false,
-      message: ''
+      message: '',
+      imageComponentKey: 0
     }
   },
 
   methods: {
+    removePicture: function () {
+      this.questionRequest.questionPicture = String
+      this.imageComponentKey += 1
+    },
     navigateBackToEdit:function () {
       this.$router.push({
         name: 'editRoute',
@@ -107,3 +115,8 @@ export default {
   }
 }
 </script>
+<style>
+.cancel {
+  height: 35px;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <input type="file" v-on:change="handleImage" accept="image/x-png,image/jpeg">
-    <div v-if="pictureDataBase64 != String" >
+    <div v-if="pictureDataBase64 != String && pictureDataBase64 != null" >
       <img :src=pictureDataBase64 class="img-thumbnail" alt="...">
     </div>
   </div>
@@ -23,7 +23,6 @@ export default {
       const selectedImage = event.target.files[0];
       this.emitBase64(selectedImage);
     },
-
     emitBase64: function (fileObject) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -37,12 +36,8 @@ export default {
     }
   },
   beforeMount() {
-    console.log("olen siin 1")
     if (this.pictureDataBase64 !== String) {
-      console.log("olen siin 2");
     }
-    console.log("olen siin 3");
-
   }
 }
 </script>

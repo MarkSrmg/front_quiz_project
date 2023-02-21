@@ -4,7 +4,12 @@
       <div class="col-4">
         <input v-model="questionRequest.questionText" class="form-control" type="text"
                placeholder="Select your question to edit" aria-label="default input example">
-<!--        <ImageInput :picture-data-base64-prop="questionRequest.questionPicture" @emitBase64Event="setQuestionPicture"/>-->
+        <div>
+          <ImageInput :key="imageComponentKey" :picture-data-base64-prop="questionRequest.questionPicture" @emitBase64Event="setQuestionPicture"/>
+          <div v-if="questionRequest.questionPicture != String && questionRequest.questionPicture != null" class="mt-1" title="remove picture">
+            <font-awesome-icon v-on:click="removePicture" class="icon-hover cancel" type="button" icon="fa-solid fa-ban" />
+          </div>
+        </div>
         <AlertDanger :message="message"/>
         <div class="mb-3">
           <button v-on:click="editQuestion(questionId)" type="button" class="btn btn-dark">Edit question</button>
@@ -23,10 +28,11 @@
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import EditQuizAnswers from "@/components/edit/EditQuizAnswers.vue";
 import EditFlashcardAnswer from "@/components/edit/EditFlashcardAnswer.vue";
+import ImageInput from "@/components/ImageInput.vue";
 
 export default {
   name: 'EditQuestionsAndAnswers',
-  components: {EditFlashcardAnswer, EditQuizAnswers, AlertDanger},
+  components: {ImageInput, EditFlashcardAnswer, EditQuizAnswers, AlertDanger},
   props: {
     questionId: Number,
   },
@@ -40,11 +46,16 @@ export default {
         questionType: String(this.$route.query.quizType)
       },
       message: '',
-      isQuiz: false
+      isQuiz: false,
+      imageComponentKey: 0
     }
   },
 
   methods: {
+    removePicture: function () {
+      this.questionRequest.questionPicture = String
+      this.imageComponentKey += 1
+    },
     getAllAnswers: function (questionId) {
       this.$refs.editQuizAnswers.getAllAnswers(questionId)
     },

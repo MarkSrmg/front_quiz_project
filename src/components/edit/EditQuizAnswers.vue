@@ -14,8 +14,10 @@
             </div>
           </div>
           <div>
-<!--            <ImageInput :picture-data-base64-prop="answerRequest.answerPicture" :key="imageComponentKey"-->
-<!--                        @emitBase64Event="setAnswerPicture"/>-->
+            <ImageInput :picture-data-base64-prop="answerRequest.answerPicture" :key="imageComponentKey" @emitBase64Event="setAnswerPicture"/>
+            <div v-if="answerRequest.answerPicture != String && answerRequest.answerPicture != null" class="mt-1" title="remove picture">
+              <font-awesome-icon v-on:click="removePicture" class="icon-hover cancel" type="button" icon="fa-solid fa-ban" />
+            </div>
           </div>
           <div class="mb-3">
             <button v-if="!isEdit" v-on:click="addAnswer(questionId)" type="button" class="btn btn-success">Save answer</button>
@@ -67,6 +69,10 @@ export default {
     }
   },
   methods: {
+    removePicture: function () {
+      this.answerRequest.answerPicture = String
+      this.imageComponentKey += 1
+    },
     getAllAnswers: function (questionId) {
       this.$refs.quizAnswerTable.getAllAnswers(questionId)
     },
