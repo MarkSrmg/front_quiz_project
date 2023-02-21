@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="col-11">
-      <hr class="solid">
-    </div>
     <div class="mb-3">
       <button v-on:click="finishQuiz" type="button" class="btn btn-dark">Finish quiz</button>
     </div>
