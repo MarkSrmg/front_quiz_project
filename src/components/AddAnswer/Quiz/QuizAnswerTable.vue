@@ -115,7 +115,6 @@ export default {
     },
     removeQuiz: function () {
       this.deleteQuiz();
-      this.$router.push({name: 'menuRoute'})
     },
     deleteQuiz: function () {
       this.$http.delete("/quiz", {
@@ -125,6 +124,7 @@ export default {
           }
       ).then(response => {
         console.log(response.data)
+        this.$router.push({name: 'menuRoute'})
       }).catch(error => {
         console.log(error)
       })
