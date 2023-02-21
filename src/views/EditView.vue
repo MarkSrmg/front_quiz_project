@@ -19,6 +19,9 @@
           </tr>
           </tbody>
         </table>
+        <div class="mb-3">
+          <button v-on:click="removeQuiz" type="button" class="btn btn-dark">Delete quiz</button>
+        </div>
       </div>
       <div class="col-7">
         <EditQuestionsAndAnswers v-if="questionIsSelected" ref="editQuestionsAndAnswers" :question-id="questionId"/>
@@ -72,6 +75,10 @@ export default {
         console.log(error)
       })
     },
+    removeQuiz: function () {
+      this.deleteQuiz();
+      this.$router.push({name: 'menuRoute'})
+    },
     deleteQuestion: function (questionId) {
       this.$http.delete("/questions", {
             params: {
@@ -81,6 +88,18 @@ export default {
       ).then(response => {
         console.log(response.data)
         this.getQuestions()
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    deleteQuiz: function () {
+      this.$http.delete("/quiz", {
+            params: {
+              quizId: this.quizId
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
