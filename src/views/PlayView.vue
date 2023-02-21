@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <div class="row justify-content-center">
       <PlayError :menu="backButton" :message="message" :error-code="errorCode"/>
@@ -13,11 +14,19 @@
         </div>
         <div v-if="questionResponse.questionType === 'Q'">
           <PlayQuizAnswer :get-next-quiz-question="getNextQuizQuestion" :question-response="questionResponse"
-                        :submit-answer="submitAnswer" :submit-button="submitButton"/>
+                          :submit-answer="submitAnswer" :submit-button="submitButton"/>
         </div>
+
       </div>
+      <div v-if="!userLoggedIn" class="m-sm-auto p-5 ">
+        <button v-on:click="login" type="button" class="btn btn-outline-light mx-3">Login</button>
+        <button v-on:click="signup" type="button" class="btn btn-outline-light mx-3">Register</button>
+      </div>
+
     </div>
+
   </div>
+
 </template>
 
 <script>
@@ -34,6 +43,7 @@ export default {
       quizId: Number(this.$route.query.quizId),
       isPublic: Boolean(this.$route.query.isPublic),
       userId: sessionStorage.getItem('userId'),
+      userLoggedIn: false,
       message: '',
       errorCode: '',
       submitButton: true,
@@ -60,13 +70,21 @@ export default {
     }
   },
   methods: {
+    signup: function () {
+      this.$router.push({name: 'signupRoute'})
+    },
+    login: function () {
+      this.$router.push({name: 'loginRoute'})
+    },
+
     backButton: function () {
-      if(this.userId != null){
+      if (this.userId != null) {
         this.$router.push({name: 'menuRoute'})
-      } else{
+      } else {
         this.$router.push({name: 'loginRoute'})
       }
     },
+
     getNextFlashCardQuestion: function () {
       this.$refs.playFlashcardAnswer.setShowFCAnswer();
       this.getQuestion()
@@ -88,10 +106,10 @@ export default {
       this.submitButton = false;
     },
 
-    getQuestion: function (){
-      if (this.isPublic){
+    getQuestion: function () {
+      if (this.isPublic) {
         this.getPublicQuestion()
-      }else {
+      } else {
         this.getUserQuestion()
       }
     },
@@ -136,13 +154,11 @@ export default {
     },
 
 
-
-
     increaseQuestionCounter: function () {
-      if (!this.isPublic){
+      if (!this.isPublic) {
         this.putIncreaseQuestionCounter();
       }
-      if (this.questionResponse.questionType === 'F'){
+      if (this.questionResponse.questionType === 'F') {
         this.getNextFlashCardQuestion();
       }
     },
@@ -160,11 +176,14 @@ export default {
         console.log(error)
       })
     },
-
+    checkIfUserLoggedIn: function () {
+      this.userLoggedIn = this.userId != null
+    },
   },
 
   beforeMount() {
-    this.getQuestion()
+    this.checkIfUserLoggedIn();
+    this.getQuestion();
   }
 }
 </script>
