@@ -22,6 +22,12 @@
         <div class="mb-3">
           <button v-on:click="navigateToAddQuestion" type="button" class="btn btn-outline-success">Add new question</button>
         </div>
+
+        <div class="mb-3">
+          <button v-on:click="setPublicIsTrue" type="button" class="btn btn-outline-light">Make public</button>
+        </div>
+
+
         <div class="mb-3">
           <button v-on:click="removeQuiz" type="button" class="btn btn-outline-light">Delete quiz</button>
         </div>
@@ -102,6 +108,19 @@ export default {
       this.$http.delete("/quiz", {
             params: {
               quizId: this.quizId
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
+        this.$router.push({name: 'menuRoute'})
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    setPublicIsTrue: function () {
+      this.$http.put("/quiz/public", null, {
+            params: {
+              quizId: this.quizId,
             }
           }
       ).then(response => {
