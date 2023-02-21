@@ -23,7 +23,7 @@
               <font-awesome-icon v-on:click="emitAnswer(answer)" icon="fa-solid fa-pencil" class="icon-hover"/>
             </td>
             <td title="delete answer">
-              <font-awesome-icon v-on:click="deleteAnswer(answer.answerId)" icon="fa-solid fa-trash-can"
+              <font-awesome-icon v-on:click="deleteAnswer(answer.answerId, questionId)" icon="fa-solid fa-trash-can"
                                  class="icon-hover"/>
             </td>
             <td title="if this is checked, the answer is correct" style="max-width:21px;">
@@ -64,7 +64,7 @@ export default {
   name: 'EditQuizAnswerTable',
   components: {AlertDanger},
   props: {
-    questionId: {}
+    questionId: Number
   },
   data: function () {
     return {
@@ -132,7 +132,7 @@ export default {
     emitClearAnswerRequest: function () {
       this.$emit('emitClearAnswerRequestEvent')
     },
-    deleteAnswer: function (answerId) {
+    deleteAnswer: function (answerId, questionId) {
 
       this.$http.delete("/questions/answer", {
             params: {
@@ -141,7 +141,7 @@ export default {
           }
       ).then(response => {
         console.log(response.data)
-        this.getAllAnswers();
+        this.getAllAnswers(questionId);
       }).catch(error => {
         console.log(error)
       })

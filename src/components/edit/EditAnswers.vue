@@ -14,15 +14,15 @@
             </div>
           </div>
           <div>
-            <ImageInput :picture-data-base64-prop="answerRequest.answerPicture" :key="imageComponentKey"
-                        @emitBase64Event="setAnswerPicture"/>
+<!--            <ImageInput :picture-data-base64-prop="answerRequest.answerPicture" :key="imageComponentKey"-->
+<!--                        @emitBase64Event="setAnswerPicture"/>-->
           </div>
           <div class="mb-3">
-            <button v-if="!isEdit" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
+            <button v-if="!isEdit" v-on:click="addAnswer(questionId)" type="button" class="btn btn-success">Save answer</button>
           </div>
           <AlertDanger :message="message"/>
           <div class="mb-3" v-if="isEdit">
-            <button v-on:click="editAnswer" type="button" class="btn btn-dark">Edit answer</button>
+            <button v-on:click="editAnswer(questionId)" type="button" class="btn btn-dark">Edit answer</button>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@ export default {
   name: 'EditAnswers',
   components: {EditQuizAnswerTable, AlertDanger, QuizAnswerTable, ImageInput, AddAnswerText},
   props: {
-    questionId: {}
+    questionId: Number
   },
   data: function () {
     return {
@@ -87,17 +87,18 @@ export default {
     setAnswerPicture: function (pictureDataBase64) {
       this.answerRequest.answerPicture = pictureDataBase64
     },
-    editAnswer: function () {
+    editAnswer: function (questionId) {
       this.$refs.addAnswerText.emitAddAnswerText();
-      this.putAnswer()
+      this.putAnswer(questionId)
     },
-    addAnswer: function () {
+    addAnswer: function (questionId) {
+      console.log("EditAnswers.vue questionId: " + questionId)
       this.message = ''
       this.$refs.addAnswerText.emitAddAnswerText();
       if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === String) {
         this.message = 'Please enter your answer'
       } else {
-        this.postAnswer();
+        this.postAnswer(questionId);
       }
     },
     setAnswerText: function (answerText) {
@@ -111,14 +112,13 @@ export default {
           }
       ).then(response => {
         this.answerId = response.data.answerId;
-        this.isShown = true;
-        this.$refs.quizAnswerTable.getAllAnswers();
+        this.$refs.quizAnswerTable.getAllAnswers(questionId);
         this.clearAnswerRequest()
       }).catch(error => {
         console.log(error)
       })
     },
-    putAnswer: function () {
+    putAnswer: function (questionId) {
       this.$http.put("/questions/answer", this.answerRequest, {
             params: {
               answerId: this.answerRequest.answerId
@@ -127,14 +127,11 @@ export default {
       ).then(response => {
         console.log(response.data)
         this.isEdit = false
-        this.$refs.quizAnswerTable.getAllAnswers();
+        this.$refs.quizAnswerTable.getAllAnswers(questionId);
       }).catch(error => {
         console.log(error)
       })
     },
   }
-}
-</script>
-
 }
 </script>

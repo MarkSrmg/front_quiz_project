@@ -20,7 +20,7 @@
             <font-awesome-icon v-on:click="navigateToPlay(quiz.quizId)" icon="fa-solid fa-play" class="icon-hover"/>
           </td>
           <td>
-            <font-awesome-icon v-on:click="navigateToEditPage(quiz.quizId)"  icon="fa-solid fa-pencil" class="icon-hover"/>
+            <font-awesome-icon v-on:click="navigateToEditPage(quiz.quizId, quiz.quizType)"  icon="fa-solid fa-pencil" class="icon-hover"/>
           </td>
           <td title="Reset question counters">
             <div v-on:click="rotation(index)" class="transition"
@@ -92,8 +92,8 @@ export default {
       this.$router.push({name: 'playRoute', query: {quizId: quizId, isPublic: this.isPublic}})
     },
 
-    navigateToEditPage: function (quizId) {
-      this.$router.push({name: 'editRoute', query: {quizId: quizId}})
+    navigateToEditPage: function (quizId, quizType) {
+      this.$router.push({name: 'editRoute', query: {quizId: quizId, quizType: quizType}})
     },
 
     resetCounter: function (quizId) {

@@ -21,7 +21,7 @@
         </table>
       </div>
       <div class="col-7">
-        <EditQuestionsAndAnswers ref="editQuestionsAndAnswers" :question-id="shortQuestions.questionId"/>
+        <EditQuestionsAndAnswers v-if="questionIsSelected" ref="editQuestionsAndAnswers" :question-id="questionId"/>
       </div>
     </div>
   </div>
@@ -40,7 +40,9 @@ export default {
   data: function () {
     return {
       quizId: Number(this.$route.query.quizId),
-      quizType: '',
+      quizType: String(this.$route.query.quizType),
+      questionId: 0,
+      questionIsSelected: false,
       shortQuestions: [
         {
           questionNumber: 0,
@@ -52,6 +54,8 @@ export default {
   },
   methods: {
     editThisQuestion: function (questionId) {
+      this.questionIsSelected = true
+      this.questionId = questionId
       this.$refs.editQuestionsAndAnswers.getQuestion(questionId)
       this.$refs.editQuestionsAndAnswers.getAllAnswers(questionId)
     },

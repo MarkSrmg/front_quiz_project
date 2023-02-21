@@ -3,15 +3,15 @@
     <div class="row justify-content-center">
       <div class="col-4">
         <input v-model="questionRequest.questionText" class="form-control" type="text"
-               placeholder="Siia PEAKS KÜSIMUS TULEMA!!!!!!!" aria-label="default input example">
-        <ImageInput :picture-data-base64-prop="questionRequest.questionPicture" @emitBase64Event="setQuestionPicture"/>
+               placeholder="Select your question to edit" aria-label="default input example">
+<!--        <ImageInput :picture-data-base64-prop="questionRequest.questionPicture" @emitBase64Event="setQuestionPicture"/>-->
         <AlertDanger :message="message"/>
         <div class="mb-3">
-          <button v-on:click="editQuestion" type="button" class="btn btn-dark">Edit question</button>
+          <button v-on:click="editQuestion(questionId)" type="button" class="btn btn-dark">Edit question</button>
         </div>
       </div>
       <div>
-        <EditAnswers ref="editAnswers" />
+        <EditAnswers ref="editAnswers" :question-id="questionId"/>
       </div>
     </div>
   </div>
@@ -25,11 +25,10 @@ export default {
   name: 'EditQuestionsAndAnswers',
   components: {EditAnswers, AlertDanger, ImageInput},
   props: {
-    questionId: 0,
+    questionId: Number,
   },
   data: function () {
     return {
-      // questionId: Number(this.$route.query.questionId),
       quizId: Number(this.$route.query.quizId),
       quizType: String(this.$route.query.quizType),
       questionRequest: {
@@ -54,18 +53,6 @@ export default {
     setQuestionPicture: function (pictureDataBase64) {
       this.questionRequest.questionPicture = pictureDataBase64
     },
-    postQuestion: function () {
-      this.$http.post("/questions", this.questionRequest, {
-            params: {
-              quizId: this.quizId
-            }
-          }
-      ).then(response => {
-        this.questionId = response.data.questionId
-      }).catch(error => {
-        console.log(error)
-      })
-    },
     putQuestion: function (questionId) {
       this.$http.put("/questions", this.questionRequest, {
             params: {
@@ -74,11 +61,13 @@ export default {
           }
       ).then(response => {
         console.log(response.data)
+        this.$parent.getQuestions()
       }).catch(error => {
         console.log(error)
       })
     },
     getQuestion: function (questionId) {
+      console.log("EditQuestionsAndAnswers.vue questionId: " + questionId)
       this.$http.get("/question", {
             params: {
               questionId: questionId
@@ -86,11 +75,13 @@ export default {
           }
       ).then(response => {
         this.questionRequest = response.data
-
       }).catch(error => {
         console.log(error)
       })
     },
   },
+  mounted() {
+    console.log("EditQuestionsAndAnswers.vue mounted questionId: " + this.questionId)
+  }
 }
 </script>
