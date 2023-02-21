@@ -80,8 +80,5 @@ export default {
       })
     },
   },
-  mounted() {
-    console.log("EditQuestionsAndAnswers.vue mounted questionId: " + this.questionId)
-  }
 }
 </script>
