@@ -1,31 +1,27 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-4">
-      <AddAnswerText ref="addAnswerText" @emitAddAnswerText="setAnswerText"/>
       <div class="mb-3">
-        <button v-if="!isShown" v-on:click="addAnswer" type="button" class="btn btn-success">Save answer</button>
+        <input v-model="answerRequest.answerText" class="form-control" type="text" placeholder="Enter your Answer here" aria-label="default input example">
       </div>
       <AlertDanger :message="message"/>
-      <div class="mb-3" v-if="isShown">
+      <div class="mb-3">
         <button v-on:click="editAnswer" type="button" class="btn btn-dark">Edit answer</button>
       </div>
     </div>
-    <div v-if="isShown">
+    <div>
       <FlashcardAnswerNavigation/>
     </div>
   </div>
 </template>
 <script>
-
-import AddAnswerText from "@/components/AddAnswer/AddAnswerText.vue";
-import FlashcardAnswerNavigation from "@/components/AddAnswer/Flashcard/FlashcardAnswerNavigation.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
-
+import FlashcardAnswerNavigation from "@/components/AddAnswer/Flashcard/FlashcardAnswerNavigation.vue";
 export default {
-  name: 'AddFlashcardAnswer',
-  components: {AlertDanger, FlashcardAnswerNavigation, AddAnswerText},
+  name: 'EditFlashcardAnswer',
+  components: {AlertDanger, FlashcardAnswerNavigation},
   props: {
-    questionId: {}
+    questionId: Number
   },
   data: function () {
     return {
@@ -41,7 +37,6 @@ export default {
   },
   methods: {
     editAnswer: function () {
-      this.$refs.addAnswerText.emitAddAnswerText();
       if (this.answerRequest.answerText === '') {
         this.message = 'Please enter your answer'
       } else {
@@ -51,7 +46,6 @@ export default {
     },
 
     addAnswer: function () {
-      this.$refs.addAnswerText.emitAddAnswerText();
       if (this.answerRequest.answerText === '') {
         this.message = 'Please enter your answer'
       } else {
@@ -86,7 +80,18 @@ export default {
         console.log(error)
       })
     },
-
+    getAnswer: function () {
+      this.$http.get("/questions/answer", {
+            params: {
+              questionId: this.questionId
+            }
+          }
+      ).then(response => {
+        this.answerRequest = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
   }
 }
 </script>

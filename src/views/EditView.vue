@@ -68,7 +68,6 @@ export default {
       this.questionIsSelected = true
       this.questionId = questionId
       this.$refs.editQuestionsAndAnswers.getQuestion(questionId)
-      this.$refs.editQuestionsAndAnswers.getAllAnswers(questionId)
     },
     getQuestions: function () {
       this.$http.get("/questions", {

@@ -45,7 +45,7 @@ import AlertDanger from "@/components/alert/AlertDanger.vue";
 import EditQuizAnswerTable from "@/components/edit/EditQuizAnswerTable.vue";
 
 export default {
-  name: 'EditAnswers',
+  name: 'EditQuizAnswers',
   components: {EditQuizAnswerTable, AlertDanger, QuizAnswerTable, ImageInput, AddAnswerText},
   props: {
     questionId: Number
@@ -92,7 +92,7 @@ export default {
       this.putAnswer(questionId)
     },
     addAnswer: function (questionId) {
-      console.log("EditAnswers.vue questionId: " + questionId)
+      console.log("EditQuizAnswers.vue questionId: " + questionId)
       this.message = ''
       this.$refs.addAnswerText.emitAddAnswerText();
       if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === String) {

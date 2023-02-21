@@ -10,20 +10,23 @@
           <button v-on:click="editQuestion(questionId)" type="button" class="btn btn-dark">Edit question</button>
         </div>
       </div>
-      <div>
-        <EditAnswers ref="editAnswers" :question-id="questionId"/>
+      <div v-if="!isQuiz">
+        <EditFlashcardAnswer ref="editFlashcardAnswer" :question-id="questionId"/>
+      </div>
+      <div v-if="isQuiz">
+        <EditQuizAnswers ref="editQuizAnswers" :question-id="questionId"/>
       </div>
     </div>
   </div>
 </template>
 <script>
-import ImageInput from "@/components/ImageInput.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
-import EditAnswers from "@/components/edit/EditAnswers.vue";
+import EditQuizAnswers from "@/components/edit/EditQuizAnswers.vue";
+import EditFlashcardAnswer from "@/components/edit/EditFlashcardAnswer.vue";
 
 export default {
   name: 'EditQuestionsAndAnswers',
-  components: {EditAnswers, AlertDanger, ImageInput},
+  components: {EditFlashcardAnswer, EditQuizAnswers, AlertDanger},
   props: {
     questionId: Number,
   },
@@ -36,13 +39,17 @@ export default {
         questionPicture: String,
         questionType: String(this.$route.query.quizType)
       },
-      message: ''
+      message: '',
+      isQuiz: false
     }
   },
 
   methods: {
     getAllAnswers: function (questionId) {
-      this.$refs.editAnswers.getAllAnswers(questionId)
+      this.$refs.editQuizAnswers.getAllAnswers(questionId)
+    },
+    getFlashcardAnswer: function (questionId) {
+      this.$refs.editFlashcardAnswer.getAnswer(questionId)
     },
     editQuestion: function (questionId) {
       this.putQuestion(questionId)
@@ -75,10 +82,18 @@ export default {
           }
       ).then(response => {
         this.questionRequest = response.data
+        if (this.isQuiz) {
+          this.getAllAnswers(questionId)
+        } else {
+          this.getFlashcardAnswer(questionId)
+        }
       }).catch(error => {
         console.log(error)
       })
     },
   },
+  beforeMount() {
+    this.isQuiz = this.quizType === 'Q'
+  }
 }
 </script>
