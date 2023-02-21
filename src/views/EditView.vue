@@ -20,7 +20,10 @@
           </tbody>
         </table>
         <div class="mb-3">
-          <button v-on:click="removeQuiz" type="button" class="btn btn-dark">Delete quiz</button>
+          <button v-on:click="navigateToAddQuestion" type="button" class="btn btn-outline-success">Add new question</button>
+        </div>
+        <div class="mb-3">
+          <button v-on:click="removeQuiz" type="button" class="btn btn-outline-light">Delete quiz</button>
         </div>
       </div>
       <div class="col-7">
@@ -56,6 +59,11 @@ export default {
     }
   },
   methods: {
+    navigateToAddQuestion: function () {
+      this.$router.push({name: 'addQuestionRoute',
+        query: {quizId: String(this.quizId), quizType: String(this.quizType), fromEdit: String(true)}
+      })
+    },
     editThisQuestion: function (questionId) {
       this.questionIsSelected = true
       this.questionId = questionId

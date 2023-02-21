@@ -1,5 +1,8 @@
 <template>
   <div class="row justify-content-center">
+    <div v-if="fromEdit" class="mb-3">
+      <button v-on:click="navigateBackToEdit" type="button" class="btn btn-outline-secondary">Back to edit page</button>
+    </div>
     <div class="col-4">
       <AddQuestionText ref="addQuestionText" @emitAddQuestionText="setQuestionText"/>
       <ImageInput :picture-data-base64-prop="questionRequest.questionPicture" @emitBase64Event="setQuestionPicture"/>
@@ -34,6 +37,7 @@ export default {
       questionId: Number(this.$route.query.questionId),
       quizId: Number(this.$route.query.quizId),
       quizType: String(this.$route.query.quizType),
+      fromEdit: Boolean(this.$route.query.fromEdit),
       questionRequest: {
         questionText: '',
         questionPicture: String,
@@ -46,11 +50,16 @@ export default {
   },
 
   methods: {
+    navigateBackToEdit:function () {
+      this.$router.push({
+        name: 'editRoute',
+        query: {quizId: String(this.quizId), quizType: String(this.quizType)}
+      })
+    },
     editQuestion: function () {
       this.$refs.addQuestionText.emitAddQuestionText();
       this.putQuestion()
     },
-
     addQuestion: function () {
       this.$refs.addQuestionText.emitAddQuestionText();
       this.message = '';
@@ -62,7 +71,6 @@ export default {
       }
 
     },
-
     setQuestionText: function (questionText) {
       this.questionRequest.questionText = questionText
     },
