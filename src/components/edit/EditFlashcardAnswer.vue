@@ -10,16 +10,18 @@
       </div>
     </div>
     <div>
-      <FlashcardAnswerNavigation/>
+      <EditFlashcardAnswerNavigation/>
     </div>
   </div>
 </template>
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import FlashcardAnswerNavigation from "@/components/AddAnswer/Flashcard/FlashcardAnswerNavigation.vue";
+import EditFlashcardAnswerNavigation from "@/components/edit/EditFlashcardAnswerNavigation.vue";
+
 export default {
   name: 'EditFlashcardAnswer',
-  components: {AlertDanger, FlashcardAnswerNavigation},
+  components: {EditFlashcardAnswerNavigation, AlertDanger, FlashcardAnswerNavigation},
   props: {
     questionId: Number
   },
