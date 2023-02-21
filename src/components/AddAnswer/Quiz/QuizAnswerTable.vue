@@ -84,6 +84,7 @@ export default {
     emitAnswer: function (answer) {
       let answerString = JSON.stringify(answer)
       this.$emit('emitAnswerEvent', JSON.parse(answerString))
+      window.scrollTo(0,0);
     },
     nextQuestion: function () {
       let hasCorrectAnswer = false;
