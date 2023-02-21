@@ -1,12 +1,5 @@
 <template>
   <div id="app">
-<!--    <div>-->
-<!--      <nav class="position-fixed end-0">-->
-<!--        <router-link v-if="userLoggedIn" to="/menu"><font-awesome-icon icon="fa-solid fa-house" class="icon-hover"/></router-link> |-->
-<!--        <router-link v-if="userLoggedIn" to="/logout">Log out</router-link>-->
-<!--        <router-link   v-if="!userLoggedIn" to="/login">Login</router-link> |-->
-<!--      </nav>-->
-<!--    </div>-->
 
     <nav class="navbar navbar-expand-sm bg-transparent">
       <div class="container-fluid">
@@ -21,8 +14,6 @@
         </div>
       </div>
     </nav>
-
-
 
     <router-view @emitLoginSuccessEvent="updateNavigationMenu"/>
 
