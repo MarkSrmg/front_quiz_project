@@ -30,7 +30,7 @@
 
         <div class="col-5">
 
-          <button v-if="display5LastPublicButton" v-on:click="show5PublicQuizzes" type="button" class="btn btn-outline-light">Show 5 Latest</button>
+          <button v-if="display5LastPublicButton" v-on:click="show5PublicQuizzes" type="button" class="btn btn-outline-light">Show 5 Random Public Quizzes</button>
           <button v-else v-on:click="showAllPublicQuizzes" type="button" class="btn btn-outline-light">Show All
             Public Quizzes
           </button>
@@ -79,7 +79,7 @@ export default {
     },
 
     show5PublicQuizzes: function () {
-      this.$refs.publicQuizzesTable.getPublicLast5Quizzes()
+      this.$refs.publicQuizzesTable.getPublicRandom5Quizzes()
       this.display5LastPublicButton = false
     }
 

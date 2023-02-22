@@ -25,8 +25,9 @@
 
       <div class="col-8 ">
         <div>
-          <PublicQuizzesTable/>
+          <PublicQuizzesTable ref="quizzesTable" />
         </div>
+        <button v-on:click="getRandom5" type="button" class="btn btn-outline-light">Show 5 Random Public Quizzes</button>
       </div>
     </div>
   </div>
@@ -97,8 +98,10 @@ export default {
         this.message = this.apiError.message
       })
     },
+    getRandom5: function () {
+      this.$refs.quizzesTable.getPublicRandom5Quizzes()
+    }
   },
-
 }
 </script>
 

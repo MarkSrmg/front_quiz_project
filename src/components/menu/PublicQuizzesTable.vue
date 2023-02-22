@@ -56,8 +56,8 @@ export default {
           })
     },
 
-    getPublicLast5Quizzes: function () {
-      this.$http.get("/quiz/public/last-5")
+    getPublicRandom5Quizzes: function () {
+      this.$http.get("/quiz/public/random-5")
           .then(response => {
             this.quizzes = response.data
           })
@@ -88,7 +88,7 @@ export default {
     },
   },
   beforeMount() {
-    this.getPublicLast5Quizzes();
+    this.getPublicRandom5Quizzes();
     this.checkIfUserLoggedIn();
 
   }
