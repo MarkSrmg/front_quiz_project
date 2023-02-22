@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="col-7">
-        <EditQuestionsAndAnswers v-if="questionIsSelected" ref="editQuestionsAndAnswers" :question-id="questionId"/>
+        <EditQuestionsAndAnswers v-if="questionIsSelected" :question-id="questionId"/>
       </div>
     </div>
   </div>
@@ -72,9 +72,9 @@ export default {
       })
     },
     editThisQuestion: function (questionId) {
+      console.log("EditView.vue editThisQuestion() -> questionId: " + questionId)
       this.questionIsSelected = true
       this.questionId = questionId
-      this.$refs.editQuestionsAndAnswers.getQuestion(questionId)
     },
     getQuestions: function () {
       this.$http.get("/questions", {

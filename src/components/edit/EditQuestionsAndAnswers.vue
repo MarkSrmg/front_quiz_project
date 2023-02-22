@@ -42,7 +42,7 @@ export default {
       quizType: String(this.$route.query.quizType),
       questionRequest: {
         questionText: '',
-        questionPicture: String,
+        questionPicture: '',
         questionType: String(this.$route.query.quizType)
       },
       message: '',
@@ -53,7 +53,7 @@ export default {
 
   methods: {
     removePicture: function () {
-      this.questionRequest.questionPicture = String
+      this.questionRequest.questionPicture = ''
       this.imageComponentKey += 1
     },
     getAllAnswers: function (questionId) {
@@ -93,6 +93,7 @@ export default {
           }
       ).then(response => {
         this.questionRequest = response.data
+        this.imageComponentKey += 1
         if (this.isQuiz) {
           this.getAllAnswers(questionId)
         } else {
@@ -103,7 +104,14 @@ export default {
       })
     },
   },
+  watch: {
+    questionId() {
+      this.getQuestion(this.questionId)
+    },
+  },
   beforeMount() {
+    this.getQuestion(this.questionId)
+    console.log("EditQuestionsAndAnswers.vue beforeMount()")
     this.isQuiz = this.quizType === 'Q'
   }
 }

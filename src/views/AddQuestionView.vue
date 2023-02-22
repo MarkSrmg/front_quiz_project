@@ -43,7 +43,7 @@ export default {
       fromEdit: Boolean(this.$route.query.fromEdit),
       questionRequest: {
         questionText: '',
-        questionPicture: String,
+        questionPicture: '',
         questionType: String(this.$route.query.quizType)
       },
       isShown: false,
@@ -55,7 +55,7 @@ export default {
 
   methods: {
     removePicture: function () {
-      this.questionRequest.questionPicture = String
+      this.questionRequest.questionPicture = ''
       this.imageComponentKey += 1
     },
     navigateBackToEdit:function () {

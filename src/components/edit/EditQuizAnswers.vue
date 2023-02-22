@@ -58,7 +58,7 @@ export default {
       answerRequest: {
         answerId: 0,
         answerText: '',
-        answerPicture: String,
+        answerPicture: '',
         answerIsCorrect: false
       },
       isShown: false,
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     removePicture: function () {
-      this.answerRequest.answerPicture = String
+      this.answerRequest.answerPicture = ''
       this.imageComponentKey += 1
     },
     getAllAnswers: function (questionId) {
@@ -84,7 +84,7 @@ export default {
 
     },
     clearAnswerRequest: function () {
-      this.answerRequest.answerPicture = String
+      this.answerRequest.answerPicture = ''
       this.answerRequest.answerIsCorrect = false
       this.answerRequest.answerText = ''
       this.textComponentKey += 1;
