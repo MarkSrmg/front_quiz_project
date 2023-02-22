@@ -23,7 +23,7 @@
           <button v-on:click="navigateToAddQuestion" type="button" class="btn btn-outline-success">Add new question</button>
         </div>
 
-        <div class="mb-3">
+        <div v-if="roleName === 'teacher'" class="mb-3">
           <button v-on:click="setPublicIsTrue" type="button" class="btn btn-outline-light">Make public</button>
         </div>
 
@@ -55,6 +55,7 @@ export default {
       quizType: String(this.$route.query.quizType),
       questionId: 0,
       questionIsSelected: false,
+      roleName: sessionStorage.getItem('roleName'),
       shortQuestions: [
         {
           questionNumber: 0,
