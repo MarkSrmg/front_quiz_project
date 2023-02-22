@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-content-center">
     <div v-if="fromEdit" class="mb-3">
-      <button v-on:click="navigateBackToEdit" type="button" class="btn btn-outline-secondary">Back to edit page</button>
+      <button v-on:click="navigateBackToEdit" type="button" class="btn btn-info">Back to edit page</button>
     </div>
     <div class="col-4">
       <AddQuestionText ref="addQuestionText" @emitAddQuestionText="setQuestionText"/>

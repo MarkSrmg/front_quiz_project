@@ -87,7 +87,7 @@ export default {
     editAnswer: function () {
       this.message = ''
       this.$refs.addAnswerText.emitAddAnswerText();
-      if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === '' && this.answerRequest.answerPicture === null) {
+      if (this.answerRequest.answerText === '' && (this.answerRequest.answerPicture === '' || this.answerRequest.answerPicture === null)) {
         this.message = 'Please enter your answer'
       } else {
         this.putAnswer()
