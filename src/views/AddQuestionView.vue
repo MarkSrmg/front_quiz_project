@@ -6,7 +6,7 @@
     <div class="col-4">
       <AddQuestionText ref="addQuestionText" @emitAddQuestionText="setQuestionText"/>
       <ImageInput :picture-data-base64-prop="questionRequest.questionPicture" :key="imageComponentKey" @emitBase64Event="setQuestionPicture"/>
-      <div v-if="questionRequest.questionPicture != String" class="mt-1" title="remove picture">
+      <div v-if="questionRequest.questionPicture !== '' && questionRequest.questionPicture !== null" class="mt-1" title="remove picture">
         <font-awesome-icon v-on:click="removePicture" class="icon-hover cancel" type="button" icon="fa-solid fa-ban" />
       </div>
       <div class="mb-3 my-2" v-if="!isShown">

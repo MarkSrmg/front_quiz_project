@@ -6,7 +6,7 @@
                placeholder="Select your question to edit" aria-label="default input example">
         <div>
           <ImageInput :key="imageComponentKey" :picture-data-base64-prop="questionRequest.questionPicture" @emitBase64Event="setQuestionPicture"/>
-          <div v-if="questionRequest.questionPicture != String && questionRequest.questionPicture != null" class="mt-1" title="remove picture">
+          <div v-if="questionRequest.questionPicture !== '' && questionRequest.questionPicture !== null" class="mt-1" title="remove picture">
             <font-awesome-icon v-on:click="removePicture" class="icon-hover cancel" type="button" icon="fa-solid fa-ban" />
           </div>
         </div>

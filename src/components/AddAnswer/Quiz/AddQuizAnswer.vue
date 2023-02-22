@@ -13,7 +13,7 @@
         </div>
         <div>
           <ImageInput :picture-data-base64-prop="answerRequest.answerPicture" :key="imageComponentKey" @emitBase64Event="setAnswerPicture"/>
-          <div v-if="answerRequest.answerPicture != String && answerRequest.answerPicture != null" class="mt-1" title="remove picture">
+          <div v-if="answerRequest.answerPicture !== '' && answerRequest.answerPicture !== null" class="mt-1" title="remove picture">
             <font-awesome-icon v-on:click="removePicture" class="icon-hover cancel" type="button" icon="fa-solid fa-ban" />
           </div>
         </div>
