@@ -2,10 +2,11 @@
   <div>
     <div class="row justify-content-start">
       <div class="col-3">
+        <input v-model="quiz.quizName" type="text" class="form-control">
         <table class="table table-borderless table-hover text-white fw-bold"
                style="background-color: rgba(0, 0, 0, 0.25)">
           <tbody>
-          <tr v-for="shortQuestion in shortQuestions" :key="shortQuestion.questionId">
+          <tr v-for="shortQuestion in quiz.questionShort" :key="shortQuestion.questionId">
             <td>{{ shortQuestion.questionNumber }}</td>
             <td>{{ shortQuestion.questionShortText }}</td>
             <td title="edit question and answers">
@@ -19,17 +20,26 @@
           </tr>
           </tbody>
         </table>
-        <div class="mb-3">
+        <div v-if="roleName === 'teacher'" class="mb-3">
           <button v-on:click="navigateToAddQuestion" type="button" class="btn btn-outline-success">Add new question</button>
         </div>
-
-        <div v-if="roleName === 'teacher'" class="mb-3">
-          <button v-on:click="setPublicIsTrue" type="button" class="btn btn-outline-light">Make public</button>
+        <div v-if="roleName === 'teacher'" class="form-check form-switch my-2">
+          <input v-model="quiz.isPublic" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Public quiz</label>
         </div>
 
+        <div class="input-group mb-3 my-2">
+          <span class="input-group-text">Correct</span>
+          <input v-model="quiz.requiredCount" type="number" min="1" class="form-control" placeholder="1">
+        </div>
 
         <div class="mb-3">
-          <button v-on:click="removeQuiz" type="button" class="btn btn-outline-light">Delete quiz</button>
+          <button v-on:click="saveQuizChanges" type="button" class="btn btn-outline-light">Save quiz</button>
+        </div>
+        <AlertSuccess :message="message"/>
+
+        <div class="mb-3">
+          <button v-on:click="removeQuiz" type="button" class="btn btn-outline-danger">Delete quiz</button>
         </div>
       </div>
       <div class="col-7">
@@ -42,10 +52,11 @@
 
 <script>
 import EditQuestionsAndAnswers from "@/components/edit/EditQuestionsAndAnswers.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 
 export default {
   name: "EditView",
-  components: {EditQuestionsAndAnswers},
+  components: {AlertSuccess, EditQuestionsAndAnswers},
   props: {
     userId: {}
   },
@@ -56,13 +67,25 @@ export default {
       questionId: 0,
       questionIsSelected: false,
       roleName: sessionStorage.getItem('roleName'),
-      shortQuestions: [
-        {
-          questionNumber: 0,
-          questionId: 0,
-          questionShortText: ''
-        }
-      ]
+      message:'',
+      quiz:{
+        quizName: '',
+        requiredCount: '',
+        isPublic: '',
+        questionShort: [
+          {
+            questionNumber: 0,
+            questionId: 0,
+            questionShortText: ''
+          }
+        ]
+      },
+      saveQuiz:{
+        quizName: '',
+        requiredCount: 0,
+        isPublic: false
+      }
+
     }
   },
   methods: {
@@ -83,7 +106,7 @@ export default {
             }
           }
       ).then(response => {
-        this.shortQuestions = response.data
+        this.quiz = response.data
 
       }).catch(error => {
         console.log(error)
@@ -118,15 +141,22 @@ export default {
         console.log(error)
       })
     },
-    setPublicIsTrue: function () {
-      this.$http.put("/quiz/public", null, {
+    saveQuizChanges: function () {
+      this.saveQuiz.quizName = this.quiz.quizName
+      this.saveQuiz.isPublic = this.quiz.isPublic
+      this.saveQuiz.requiredCount = this.quiz.requiredCount
+      this.$http.put("/quiz/edit", this.saveQuiz, {
             params: {
               quizId: this.quizId,
             }
           }
       ).then(response => {
         console.log(response.data)
-        this.$router.push({name: 'menuRoute'})
+        this.getQuestions()
+        this.message = "Updated"
+        setTimeout(() => {
+          this.message = '';
+        }, "2000")
       }).catch(error => {
         console.log(error)
       })
