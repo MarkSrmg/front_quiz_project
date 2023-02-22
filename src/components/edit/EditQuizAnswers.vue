@@ -94,8 +94,13 @@ export default {
       this.answerRequest.answerPicture = pictureDataBase64
     },
     editAnswer: function (questionId) {
+      this.message = ''
       this.$refs.addAnswerText.emitAddAnswerText();
-      this.putAnswer(questionId)
+      if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === '' && this.answerRequest.answerPicture === null) {
+        this.message = 'Please enter your answer'
+      } else {
+        this.putAnswer(questionId)
+      }
     },
     addAnswer: function (questionId) {
       console.log("EditQuizAnswers.vue questionId: " + questionId)
