@@ -63,10 +63,12 @@ export default {
       this.$refs.editFlashcardAnswer.getAnswer(questionId)
     },
     editQuestion: function (questionId) {
-      this.putQuestion(questionId)
-    },
-    setQuestionText: function (questionText) {
-      this.questionRequest.questionText = questionText
+      this.message = ''
+      if (this.questionRequest.questionText === '') {
+        this.message = 'Please enter your question text';
+      } else {
+        this.putQuestion(questionId);
+      }
     },
     setQuestionPicture: function (pictureDataBase64) {
       this.questionRequest.questionPicture = pictureDataBase64

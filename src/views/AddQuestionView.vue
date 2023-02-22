@@ -66,13 +66,18 @@ export default {
     },
     editQuestion: function () {
       this.$refs.addQuestionText.emitAddQuestionText();
-      this.putQuestion()
+      this.message = ''
+      if (this.questionRequest.questionText === '') {
+        this.message = 'Please enter your question text';
+      } else {
+        this.putQuestion()
+      }
     },
     addQuestion: function () {
       this.$refs.addQuestionText.emitAddQuestionText();
       this.message = '';
       if (this.questionRequest.questionText === '') {
-        this.message = 'Please enter your question'
+        this.message = 'Please enter your question text'
       } else {
         this.postQuestion()
         this.isShown = true

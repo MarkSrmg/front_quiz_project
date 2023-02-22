@@ -101,7 +101,7 @@ export default {
       console.log("EditQuizAnswers.vue questionId: " + questionId)
       this.message = ''
       this.$refs.addAnswerText.emitAddAnswerText();
-      if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === String) {
+      if (this.answerRequest.answerText === '' && this.answerRequest.answerPicture === '') {
         this.message = 'Please enter your answer'
       } else {
         this.postAnswer(questionId);

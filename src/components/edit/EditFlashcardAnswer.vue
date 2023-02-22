@@ -46,30 +46,6 @@ export default {
         this.isShown = true
       }
     },
-
-    addAnswer: function () {
-      if (this.answerRequest.answerText === '') {
-        this.message = 'Please enter your answer'
-      } else {
-        this.postAnswer();
-        this.isShown = true
-      }
-    },
-    setAnswerText: function (answerText) {
-      this.answerRequest.answerText = answerText
-    },
-    postAnswer: function () {
-      this.$http.post("/questions/answer", this.answerRequest, {
-            params: {
-              questionId: this.questionId
-            }
-          }
-      ).then(response => {
-        this.answerId = response.data.answerId
-      }).catch(error => {
-        console.log(error)
-      })
-    },
     putAnswer: function () {
       this.$http.put("/questions/answer", this.answerRequest, {
             params: {
