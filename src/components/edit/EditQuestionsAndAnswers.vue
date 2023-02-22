@@ -12,7 +12,7 @@
         </div>
         <AlertDanger :message="message"/>
         <div class="mb-3 my-3">
-          <button v-on:click="editQuestion(questionId)" type="button" class="btn btn-dark">Edit question</button>
+          <button v-on:click="editQuestion(questionId)" type="button" class="btn btn-dark">Save question changes</button>
         </div>
       </div>
       <div v-if="!isQuiz">

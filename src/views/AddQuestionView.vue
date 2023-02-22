@@ -14,7 +14,7 @@
       </div>
       <AlertDanger :message="message"/>
       <div class="mb-3 my-2" v-if="isShown">
-        <button v-on:click="editQuestion" type="button" class="btn btn-dark">Edit question</button>
+        <button v-on:click="editQuestion" type="button" class="btn btn-dark">Save question changes</button>
       </div>
     </div>
     <div v-if="isShown">

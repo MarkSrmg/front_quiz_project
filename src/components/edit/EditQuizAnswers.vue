@@ -24,7 +24,7 @@
           </div>
           <AlertDanger :message="message"/>
           <div class="mb-3 my-3" v-if="isEdit">
-            <button v-on:click="editAnswer(questionId)" type="button" class="btn btn-dark">Edit answer</button>
+            <button v-on:click="editAnswer(questionId)" type="button" class="btn btn-dark">Save answer changes</button>
           </div>
         </div>
       </div>
