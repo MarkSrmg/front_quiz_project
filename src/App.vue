@@ -8,8 +8,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto">
-            <router-link v-if="userLoggedIn" to="/menu"><font-awesome-icon icon="fa-solid fa-house" class="icon-hover mx-3"/></router-link>
+
+
             <router-link v-if="userLoggedIn" to="/logout" class="icon-hover mx-3">Log out</router-link>
+            <router-link v-if="!userLoggedIn" to="/"><font-awesome-icon icon="fa-solid fa-house" class="icon-hover mx-3"/></router-link>
+            <router-link v-if="userLoggedIn" to="/menu"><font-awesome-icon icon="fa-solid fa-house" class="icon-hover mx-3"/></router-link>
           </div>
         </div>
       </div>

@@ -18,10 +18,10 @@
         </div>
 
       </div>
-      <div v-if="!userLoggedIn" class="m-sm-auto p-5 ">
-        <button v-on:click="login" type="button" class="btn btn-outline-light mx-3">Login</button>
-        <button v-on:click="signup" type="button" class="btn btn-outline-light mx-3">Register</button>
-      </div>
+<!--      <div v-if="!userLoggedIn" class="m-sm-auto p-5 ">-->
+<!--        <button v-on:click="login" type="button" class="btn btn-outline-light mx-3">Login</button>-->
+<!--        <button v-on:click="signup" type="button" class="btn btn-outline-light mx-3">Register</button>-->
+<!--      </div>-->
 
     </div>
 
