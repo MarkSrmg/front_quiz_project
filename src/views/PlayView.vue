@@ -16,11 +16,8 @@
           <PlayQuizAnswer :get-next-quiz-question="getNextQuizQuestion" :question-response="questionResponse"
                           :submit-answer="submitAnswer" :submit-button="submitButton"/>
         </div>
-
       </div>
-
     </div>
-
   </div>
 
 </template>
