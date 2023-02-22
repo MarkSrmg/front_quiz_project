@@ -39,7 +39,12 @@
         <AlertSuccess :message="message"/>
 
         <div class="mb-3">
-          <button v-on:click="removeQuiz" type="button" class="btn btn-outline-danger">Delete quiz</button>
+          <Modal :show="showModal" >
+            <template #header><button v-on:click="showModal = false" type="button" class="btn-close" aria-label="Close"></button></template>
+            <template #body>Are you sure you want to delete your quiz (this move is IRREVERSIBLE!)</template>
+            <template #footer><button v-on:click="deleteQuiz" type="button" class="btn btn-outline-danger">Delete quiz</button></template>
+          </Modal>
+          <button v-on:click="showModal = true" type="button" class="btn btn-outline-danger">Delete quiz</button>
         </div>
       </div>
       <div class="col-7">
@@ -53,10 +58,11 @@
 <script>
 import EditQuestionsAndAnswers from "@/components/edit/EditQuestionsAndAnswers.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
   name: "EditView",
-  components: {AlertSuccess, EditQuestionsAndAnswers},
+  components: {Modal, AlertSuccess, EditQuestionsAndAnswers},
   props: {
     userId: {}
   },
@@ -68,6 +74,7 @@ export default {
       questionIsSelected: false,
       roleName: sessionStorage.getItem('roleName'),
       message:'',
+      showModal: false,
       quiz:{
         quizName: '',
         requiredCount: '',
@@ -111,9 +118,6 @@ export default {
       }).catch(error => {
         console.log(error)
       })
-    },
-    removeQuiz: function () {
-      this.deleteQuiz();
     },
     deleteQuestion: function (questionId) {
       this.$http.delete("/questions", {
