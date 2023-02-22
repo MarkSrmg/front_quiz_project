@@ -19,9 +19,9 @@
         <div class="col-5">
 
           <button v-if="display5LastPrivateButton" v-on:click="show5UserQuizzes" type="button"
-                  class="btn btn-outline-secondary text-white">Show 5 latest
+                  class="btn btn-outline-light">Show 5 latest
           </button>
-          <button v-else v-on:click="showAllUserQuizzes" type="button" class="btn btn-outline-secondary text-white">Show All My
+          <button v-else v-on:click="showAllUserQuizzes" type="button" class="btn btn-outline-light">Show All My
             Quizzes
           </button>
 
@@ -30,8 +30,8 @@
 
         <div class="col-5">
 
-          <button v-if="display5LastPublicButton" v-on:click="show5PublicQuizzes" type="button" class="btn btn-outline-secondary text-white">Show 5 Latest</button>
-          <button v-else v-on:click="showAllPublicQuizzes" type="button" class="btn btn-outline-secondary text-white">Show All
+          <button v-if="display5LastPublicButton" v-on:click="show5PublicQuizzes" type="button" class="btn btn-outline-light">Show 5 Latest</button>
+          <button v-else v-on:click="showAllPublicQuizzes" type="button" class="btn btn-outline-light">Show All
             Public Quizzes
           </button>
         </div>
