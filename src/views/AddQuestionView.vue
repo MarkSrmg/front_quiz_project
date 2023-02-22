@@ -9,11 +9,11 @@
       <div v-if="questionRequest.questionPicture != String" class="mt-1" title="remove picture">
         <font-awesome-icon v-on:click="removePicture" class="icon-hover cancel" type="button" icon="fa-solid fa-ban" />
       </div>
-      <div class="mb-3" v-if="!isShown">
+      <div class="mb-3 my-2" v-if="!isShown">
         <button v-on:click="addQuestion" type="button" class="btn btn-success">Save question</button>
       </div>
       <AlertDanger :message="message"/>
-      <div class="mb-3" v-if="isShown">
+      <div class="mb-3 my-2" v-if="isShown">
         <button v-on:click="editQuestion" type="button" class="btn btn-dark">Edit question</button>
       </div>
     </div>

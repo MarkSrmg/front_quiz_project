@@ -11,7 +11,7 @@
           </div>
         </div>
         <AlertDanger :message="message"/>
-        <div class="mb-3">
+        <div class="mb-3 my-3">
           <button v-on:click="editQuestion(questionId)" type="button" class="btn btn-dark">Edit question</button>
         </div>
       </div>

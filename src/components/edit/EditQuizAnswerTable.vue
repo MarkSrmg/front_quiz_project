@@ -70,7 +70,7 @@ export default {
         {
           answerId: 0,
           answerText: '',
-          answerPicture: '',
+          answerPicture: null,
           answerIsCorrect: false
         }
       ],
