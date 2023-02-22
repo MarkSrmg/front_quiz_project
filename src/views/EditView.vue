@@ -20,7 +20,7 @@
           </tr>
           </tbody>
         </table>
-        <div v-if="roleName === 'teacher'" class="mb-3">
+        <div class="mb-3">
           <button v-on:click="navigateToAddQuestion" type="button" class="btn btn-outline-success">Add new question</button>
         </div>
         <div v-if="roleName === 'teacher'" class="form-check form-switch my-2">
