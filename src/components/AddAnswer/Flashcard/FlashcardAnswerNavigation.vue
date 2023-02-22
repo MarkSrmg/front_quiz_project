@@ -14,17 +14,25 @@
       <button v-on:click="finishQuiz" type="button" class="btn btn-dark">Finish quiz</button>
     </div>
     <div class="mb-3">
-      <button v-on:click="removeQuiz" type="button" class="btn btn-dark">Delete quiz</button>
+      <Modal :show="showModal" >
+        <template #header><button v-on:click="showModal = false" type="button" class="btn-close btn-close-white" aria-label="Close"></button></template>
+        <template #body>Are you sure you want to delete your quiz (this move is IRREVERSIBLE!)</template>
+        <template #footer><button v-on:click="deleteQuiz" type="button" class="btn btn-outline-danger">Delete quiz</button></template>
+      </Modal>
+      <button v-on:click="showModal = true" type="button" class="btn btn-outline-danger">Delete quiz</button>
     </div>
   </div>
 </template>
 <script>
+import Modal from "@/components/Modal.vue";
+
 export default {
   name: 'FlashcardAnswerNavigation',
+  components: {Modal},
   data: function () {
     return {
       quizId: Number(this.$route.query.quizId),
-
+      showModal: false
     }
   },
   methods: {
@@ -33,9 +41,6 @@ export default {
     },
     finishQuiz: function () {
       this.$router.push({name: 'menuRoute'})
-    },
-    removeQuiz: function () {
-      this.deleteQuiz();
     },
     deleteQuiz: function () {
       this.$http.delete("/quiz", {

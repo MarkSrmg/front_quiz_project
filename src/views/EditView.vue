@@ -40,8 +40,8 @@
 
         <div class="mb-3">
           <Modal :show="showModal" >
-            <template #header><button v-on:click="showModal = false" type="button" class="btn-close" aria-label="Close"></button></template>
-            <template #body>Are you sure you want to delete your quiz (this move is IRREVERSIBLE!)</template>
+            <template #header><button v-on:click="showModal = false" type="button" class="btn-close btn-close-white" aria-label="Close"></button></template>
+            <template #body>Are you sure you want to delete your quiz?<br>(this move is IRREVERSIBLE!)</template>
             <template #footer><button v-on:click="deleteQuiz" type="button" class="btn btn-outline-danger">Delete quiz</button></template>
           </Modal>
           <button v-on:click="showModal = true" type="button" class="btn btn-outline-danger">Delete quiz</button>
@@ -175,5 +175,6 @@ export default {
 .cancel {
   height: 35px;
 }
+
 </style>
 

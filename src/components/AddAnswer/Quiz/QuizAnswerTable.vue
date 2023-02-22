@@ -53,16 +53,22 @@
       <button v-on:click="finishQuiz" type="button" class="btn btn-dark">Finish quiz</button>
     </div>
     <div class="mb-3">
-      <button v-on:click="removeQuiz" type="button" class="btn btn-dark">Delete quiz</button>
+      <Modal :show="showModal" >
+        <template #header><button v-on:click="showModal = false" type="button" class="btn-close btn-close-white" aria-label="Close"></button></template>
+        <template #body>Are you sure you want to delete your quiz?<br>(this move is IRREVERSIBLE!)</template>
+        <template #footer><button v-on:click="deleteQuiz" type="button" class="btn btn-outline-danger">Delete quiz</button></template>
+      </Modal>
+      <button v-on:click="showModal = true" type="button" class="btn btn-outline-danger">Delete quiz</button>
     </div>
   </div>
 </template>
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
   name: 'QuizAnswerTable',
-  components: {AlertDanger},
+  components: {Modal, AlertDanger},
   props: {
     questionId: {}
   },
@@ -77,7 +83,8 @@ export default {
           answerIsCorrect: false
         }
       ],
-      message: ''
+      message: '',
+      showModal: false
     }
   },
   methods: {
