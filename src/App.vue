@@ -57,6 +57,7 @@ body {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
+  overflow-x: hidden;
 }
 
 nav {
