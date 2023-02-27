@@ -70,6 +70,7 @@ export default {
           sessionStorage.setItem('userId', this.loginResponse.userId)
           sessionStorage.setItem('roleName', this.loginResponse.roleName)
           this.$router.push({name: 'menuRoute'})
+          window.location.reload();
         }).catch(error => {
           this.apiError = error.response.data
           this.message = this.apiError.message
