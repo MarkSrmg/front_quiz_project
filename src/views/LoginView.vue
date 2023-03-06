@@ -17,7 +17,7 @@
 
         <br>
         <div class="mb-3">
-          <button v-on:click="login" type="submit" class="btn btn-outline-secondary text-white m-md-2">Log in</button>
+          <button v-on:click="login" @keyup.enter="login" type="submit" class="btn btn-outline-secondary text-white m-md-2">Log in</button>
           <button v-on:click="signup" type="submit" class="btn btn-outline-secondary text-white m-md-2">Register</button>
         </div>
       </div>

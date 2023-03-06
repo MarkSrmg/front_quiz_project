@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="my-2">
-        <button v-on:click="postUser" type="button" class="btn btn-outline-secondary text-white"> Sign Up</button>
+        <button v-on:click="postUser" @keyup.enter="postUser" type="button" class="btn btn-outline-secondary text-white"> Sign Up</button>
       </div>
     </div>
 
