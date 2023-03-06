@@ -11,13 +11,13 @@
           <label for="floatingInput">Username</label>
         </div>
         <div class="form-floating my-2">
-          <input v-model="password" type="password" class="form-control" id="floatingPassword">
+          <input v-model="password" @keyup.enter="login" type="password" class="form-control" id="floatingPassword">
           <label for="floatingPassword">Password</label>
         </div>
 
         <br>
         <div class="mb-3">
-          <button v-on:click="login" @keyup.enter="login" type="submit" class="btn btn-outline-secondary text-white m-md-2">Log in</button>
+          <button v-on:click="login"  type="submit" class="btn btn-outline-secondary text-white m-md-2">Log in</button>
           <button v-on:click="signup" type="submit" class="btn btn-outline-secondary text-white m-md-2">Register</button>
         </div>
       </div>
